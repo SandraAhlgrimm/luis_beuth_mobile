@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views
 {
-    public partial class QRCode : ContentView
+    public partial class QRCode : ContentPage
     {
         public QRCode()
         {
