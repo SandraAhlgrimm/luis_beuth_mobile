@@ -3,7 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="luis_beuth_mobile.Views.QRCode"
              Title="QRCode">
-  <ContentPage.Content>
-    <Label Text="Text"></Label>
-  </ContentPage.Content>
 </ContentPage>

@@ -25,6 +25,9 @@ namespace luis_beuth_mobile.UWP
         public MainPage()
         {
             this.InitializeComponent();
+
+			ZXing.Net.Mobile.Forms.WindowsUniversal.ZXingScannerViewRenderer.Init();
+
             LoadApplication(new luis_beuth_mobile.App());
         }
     }
