@@ -25,7 +25,7 @@ namespace luis_beuth_mobile.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            LoadApplication(new App());
+            LoadApplication(new luis_beuth_mobile.App());
         }
     }
 }
