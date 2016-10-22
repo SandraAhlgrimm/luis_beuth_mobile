@@ -11,12 +11,15 @@ namespace luis_beuth_mobile.Views
 {
     public partial class MasterPage : ContentPage
     {
+        public ListView ListView { get { return listView; } }
+
         public MasterPage()
         {
             InitializeComponent();
             var detailPages = new List<DetailItem>();
             detailPages.Add(new DetailItem {Title="QRCode", targetPage=typeof(QRCode) });
-
+            detailPages.Add(new DetailItem {Title="Klausur Übersicht", targetPage=typeof(ExamOverview) });
+            detailPages.Add(new DetailItem { Title = "FSR Login", targetPage = typeof(FSRLogin) });
             listView.ItemsSource = detailPages;
         }
     }
