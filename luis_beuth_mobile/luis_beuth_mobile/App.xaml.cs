@@ -13,7 +13,7 @@ namespace luis_beuth_mobile
         {
             InitializeComponent();
 
-            MainPage = new luis_beuth_mobile.MainPage();
+            MainPage =  new luis_beuth_mobile.Views.MainPage();
         }
 
         protected override void OnStart()
