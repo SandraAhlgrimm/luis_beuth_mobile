@@ -11,10 +11,20 @@ namespace luis_beuth_mobile.Views
 {
     public partial class ExamOverview : ContentPage
     {
+        ExamOverviewViewModel vm;
         public ExamOverview()
         {
             InitializeComponent();
-            this.BindingContext = new ExamOverviewViewModel();
+            vm = new ExamOverviewViewModel();
+            BindingContext = vm;
+            
+        }
+
+        protected override void OnAppearing()
+        {
+            vm.GetExams();
+            base.OnAppearing();
+            
         }
     }
 }

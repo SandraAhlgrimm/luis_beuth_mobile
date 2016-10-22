@@ -1,4 +1,5 @@
-﻿using luis_beuth_mobile.Models.Data;
+﻿using luis_beuth_mobile.Model;
+using luis_beuth_mobile.Models.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,22 +20,17 @@ namespace luis_beuth_mobile.ViewModels
         public ExamOverviewViewModel()
         {
             AllExams = new List<Exam>();
-            
-
+            RESTExams restApi = new RESTExams();
+            var exams = restApi.Get();
         }
 
-
-        private async Task<string> getExams() {
-            
-             
-            var http = new HttpClient();
-            //TODO: enter url
-            return await http.GetStringAsync(""); ;
-        }
-
-        private List<Exam> stringToExam(string json)
+        public async void GetExams()
         {
-          return  JsonConvert.DeserializeObject<List<Exam>>(json);
+            RESTExams restApi = new RESTExams();
+            var exams = await restApi.Get();
+            AllExams =exams;
         }
+
+       
     }
 }

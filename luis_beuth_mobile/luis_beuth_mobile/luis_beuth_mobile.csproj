@@ -47,6 +47,8 @@
     <Compile Include="Model\Data\Student.cs" />
     <Compile Include="Model\Data\Teacher.cs" />
     <Compile Include="Model\DetailItem.cs" />
+    <Compile Include="Model\IREST.cs" />
+    <Compile Include="Model\RESTExams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ExamOverviewViewModel.cs" />
