@@ -9,6 +9,10 @@
     <local:MasterPage></local:MasterPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-  	<local:QRCode></local:QRCode>
+    <NavigationPage>
+      <x:Arguments>
+        <local:QRCode></local:QRCode>
+      </x:Arguments>
+    </NavigationPage>
   </MasterDetailPage.Detail>
 </MasterDetailPage>

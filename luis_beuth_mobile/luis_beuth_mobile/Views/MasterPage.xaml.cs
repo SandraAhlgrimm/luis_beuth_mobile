@@ -1,4 +1,5 @@
-﻿using System;
+﻿using luis_beuth_mobile.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace luis_beuth_mobile.Views
         public MasterPage()
         {
             InitializeComponent();
-            var detailPages = new List<string>();
-            detailPages.Add("QRCode");
+            var detailPages = new List<DetailItem>();
+            detailPages.Add(new DetailItem {Title="QRCode", targetPage=typeof(QRCode) });
 
             listView.ItemsSource = detailPages;
         }
