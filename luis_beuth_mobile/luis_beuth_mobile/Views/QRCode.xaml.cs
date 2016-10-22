@@ -27,7 +27,7 @@ namespace luis_beuth_mobile.Views
 			barcode.BarcodeOptions.Width = 300;
 			barcode.BarcodeOptions.Height = 300;
 			barcode.BarcodeOptions.Margin = 10;
-			barcode.BarcodeValue = "ZXing.Net.Mobile";
+			barcode.BarcodeValue = "S7983464";
 
 			Content = barcode;
 		}

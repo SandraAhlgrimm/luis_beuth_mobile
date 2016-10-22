@@ -20,6 +20,7 @@ namespace luis_beuth_mobile.Views
             detailPages.Add(new DetailItem {Title="QRCode", targetPage=typeof(QRCode) });
             detailPages.Add(new DetailItem {Title="Klausur Übersicht", targetPage=typeof(ExamOverview) });
             detailPages.Add(new DetailItem { Title = "FSR Login", targetPage = typeof(FSRLogin) });
+			detailPages.Add(new DetailItem { Title = "Barcode Scanner", targetPage = typeof(BarcodeScanner) });
             listView.ItemsSource = detailPages;
         }
     }

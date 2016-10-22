@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
+using System.Threading.Tasks;
 
 namespace luis_beuth_mobile
 {
@@ -53,24 +56,57 @@ namespace luis_beuth_mobile
 			Content = grid;
 		}
 
-		protected override void OnAppearing()
+		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
 
-			try
+			await CheckForCameraPermissions();
+			/*try
 			{
-				zxing.IsScanning = true;
+				//zxing.IsScanning = true;
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine("Error: " + ex.Message);
-			}
+			}*/
 		}
 
 		protected override void OnDisappearing()
 		{
 			zxing.IsScanning = false;
 			base.OnDisappearing();
+		}
+
+		private async Task CheckForCameraPermissions()
+		{
+			try
+			{
+				var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+				if (status != PermissionStatus.Granted)
+				{
+					if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Camera))
+					{
+						await DisplayAlert("Kamera Zugriff", "Zum Scannen von Barcodes wird Zugriff auf die Kamera benötigt.", "OK");
+					}
+
+					var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera });
+					status = results[Permission.Camera];
+				}
+
+				if (status == PermissionStatus.Granted)
+				{
+					zxing.IsScanning = true;
+				}
+				else if (status != PermissionStatus.Unknown)
+				{
+					await DisplayAlert("Kamera Zugriff", "Kann keinen Barcode Scannen ohne Zugriff auf die Kamera.", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Error: " + ex.Message);
+				//LabelGeolocation.Text = "Error: " + ex;
+			}
 		}
 	}
 }

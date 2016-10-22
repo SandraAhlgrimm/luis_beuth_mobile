@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:luis_beuth_mobile.Views;"
              x:Class="luis_beuth_mobile.Views.MainPage"
-              
-                  >
+		Title="Back">
   <MasterDetailPage.Master>
     <local:MasterPage x:Name="masterPage"></local:MasterPage>
   </MasterDetailPage.Master>

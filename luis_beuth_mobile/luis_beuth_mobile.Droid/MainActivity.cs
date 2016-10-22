@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.Permissions;
 
 [assembly: UsesPermission(Android.Manifest.Permission.Flashlight)]
 
@@ -30,6 +31,8 @@ namespace luis_beuth_mobile.Droid
 		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
 		{
 			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+			PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
 			global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
