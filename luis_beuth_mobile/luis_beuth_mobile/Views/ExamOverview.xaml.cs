@@ -1,4 +1,5 @@
-﻿using System;
+﻿using luis_beuth_mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace luis_beuth_mobile.Views
         public ExamOverview()
         {
             InitializeComponent();
+            this.BindingContext = new ExamOverviewViewModel();
         }
     }
 }
