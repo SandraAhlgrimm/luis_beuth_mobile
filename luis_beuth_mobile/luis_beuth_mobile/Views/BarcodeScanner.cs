@@ -27,8 +27,12 @@ namespace luis_beuth_mobile
 					// Stop analysis until we navigate away so we don't keep reading barcodes
 					zxing.IsAnalyzing = false;
 
-					// Show an alert
-					await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    // Saving scanned barcode as student id
+                    // TODO: distinguish if user wants to login or scan an exam
+                    Application.Current.Properties["studentId"] = result.Text;
+
+                    // Show an alert
+                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
 
 					// Navigate away
 					await Navigation.PopAsync();

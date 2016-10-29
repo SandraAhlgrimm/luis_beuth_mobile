@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,18 @@ namespace luis_beuth_mobile
         public App()
         {
             InitializeComponent();
+
+            Debug.WriteLine("Entry");
+            //TODO: Remove when everything works
+            Application.Current.Properties["studentId"] = "S1234567";
+
+            if (Application.Current.Properties.ContainsKey("studentId"))
+            {
+                var studentId = Application.Current.Properties["studentId"] as string;
+            }
+            
+
+
 
             MainPage =  new luis_beuth_mobile.Views.MainPage();
         }

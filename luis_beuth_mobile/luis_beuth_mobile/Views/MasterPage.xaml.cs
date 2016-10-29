@@ -1,6 +1,7 @@
 ﻿using luis_beuth_mobile.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace luis_beuth_mobile.Views
             detailPages.Add(new DetailItem { Title = "FSR Login", targetPage = typeof(FSRLogin) });
 			detailPages.Add(new DetailItem { Title = "Barcode Scanner", targetPage = typeof(BarcodeScanner) });
             listView.ItemsSource = detailPages;
+
+            Debug.WriteLine("MASTERPAGE LOADED");
         }
     }
 }
