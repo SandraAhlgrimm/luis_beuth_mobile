@@ -2,14 +2,67 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="luis_beuth_mobile.Views.ExamOverview"
-             Title="Klausuren Übersicht">
+             Title="Meine Klausuren">
+  <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+    iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+              
+  </ContentPage.Padding>
   <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
  
   <ListView ItemsSource="{Binding AllExams}">
     <ListView.ItemTemplate>
+      <!--<VAriante 1=""></VAriante>-->
       <DataTemplate>
+        <TextCell Text="{Binding Grade}" 
+                  Detail="{Binding Semester}">
+        </TextCell>
         
-        <TextCell Text="{Binding Semester}"/>
+        <!--<VAriante 2=""></VAriante>-->
+        <!--<ViewCell>
+          <ViewCell.View>
+            <StackLayout Padding="5, 0, 0, 0"
+                         VerticalOptions="Center">
+
+              <Label Text="{Binding Semester}"
+                     FontAttributes="Bold"
+                     FontSize="Medium" />
+
+              <StackLayout Orientation="Horizontal"
+                           Spacing="0">
+                <Label Text="{Grade}" />
+              <StackLayout Orientation="Horizontal"
+                           Spacing="0">
+                  <Label Text="{Grade}" />
+
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+
+        </ViewCell.View>
+        </ViewCell>-->
+
+
+            <!--<VAriante 2=""></VAriante>-->
+        <!--<ViewCell>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="2*" />  
+              <ColumnDefinition Width="2*" />  
+              <ColumnDefinition Width="2*" />    Take 20% of remainder 
+              <ColumnDefinition Width="2*"/>  
+              <ColumnDefinition Width="2*"/>   
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding Id}"/>
+            <Label Grid.Column="0" Text="{Binding Semester}" />
+            <Label Grid.Column="1" Text="{Binding Period}" />
+            <Label Grid.Column="2" Text="{Binding TeacherId}" />
+            <Label Grid.Column="3" Text="{Binding CourseId}" />
+            <Label Grid.Column="4" Text="{Binding Grade}" />
+          </Grid>
+        </ViewCell>-->
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
