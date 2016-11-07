@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace luis_beuth_mobile
 {
-	public class BarcodeScanner : ContentPage
+	public class BarcodeScannerLogin : ContentPage
 	{
 		ZXingScannerView zxing;
 		ZXingDefaultOverlay overlay;
 
-		public BarcodeScanner()
+		public BarcodeScannerLogin()
 		{
             zxing = new ZXingScannerView
 			{
@@ -27,15 +27,24 @@ namespace luis_beuth_mobile
 					// Stop analysis until we navigate away so we don't keep reading barcodes
 					zxing.IsAnalyzing = false;
 
-                    // Saving scanned barcode as student id
-                    // TODO: distinguish if user wants to login or scan an exam
-                    Application.Current.Properties["studentId"] = result.Text;
+                    
+                    // Validate result
+                    var text = result.Text;
+                    var length = text.Length;
+                    var first = text[0];
+                    var last = text[length - 1];
 
-                    // Show an alert
-                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
-
-					// Navigate away
-					await Navigation.PopAsync();
+                    if ( length == 8 && first.Equals('S') && last.Equals('0'))
+                    {
+                        // Saving scanned barcode as student id
+                        Application.Current.Properties["studentId"] = result.Text;
+                        await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");
+                        await Navigation.PopModalAsync();
+                    } else
+                    {
+                        await DisplayAlert("Login", "Ungültigen Code eingescannt!", "Nochmal einscannen");
+                    }
+      
 				});
 
 			overlay = new ZXingDefaultOverlay
@@ -65,7 +74,10 @@ namespace luis_beuth_mobile
 			base.OnAppearing();
 
 			await CheckForCameraPermissions();
-			/*try
+
+            await DisplayAlert("Login", "Scanne bitte den Barcode deines Studentenausweises ein", "OK");
+
+            /*try
 			{
 				//zxing.IsScanning = true;
 			}
@@ -73,7 +85,7 @@ namespace luis_beuth_mobile
 			{
 				Debug.WriteLine("Error: " + ex.Message);
 			}*/
-		}
+        }
 
 		protected override void OnDisappearing()
 		{
@@ -112,6 +124,11 @@ namespace luis_beuth_mobile
 				//LabelGeolocation.Text = "Error: " + ex;
 			}
 		}
-	}
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+    }
 }
 

@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ExamOverviewViewModel.cs" />
+    <Compile Include="Views\BarcodeScannerLogin.cs" />
     <Compile Include="Views\ExamOverview.xaml.cs">
       <DependentUpon>ExamOverview.xaml</DependentUpon>
     </Compile>

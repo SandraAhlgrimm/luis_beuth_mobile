@@ -38,10 +38,21 @@ namespace luis_beuth_mobile.Views
             }
             else
             {
+                // TODO: avoid setting barcodevalue to S0000000
                 barcode.BarcodeValue = "S0000000";
+                StudentLogin(this, EventArgs.Empty);
             }
 
+            Debug.WriteLine("LOG: Generating QR Code with Value: " + barcode.BarcodeValue);
+
             Content = barcode;
-		}
+
+            
+        }
+
+        private async void StudentLogin(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new BarcodeScannerLogin()));
+        }
     }
 }

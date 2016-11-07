@@ -17,7 +17,7 @@ namespace luis_beuth_mobile.Views
             InitializeComponent();
             masterPage.ListView.ItemSelected += ListView_ItemSelected;
 
-            Debug.WriteLine("Main Page 2");
+            Debug.WriteLine("LOG: Call Main Page 2");
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
