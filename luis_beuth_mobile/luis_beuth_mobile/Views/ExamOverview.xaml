@@ -16,53 +16,37 @@
     <ListView.ItemTemplate>
       <!--<VAriante 1=""></VAriante>-->
       <DataTemplate>
-        <TextCell Text="{Binding Grade}" 
+        <!--<TextCell Text="{Binding Grade}" 
                   Detail="{Binding Semester}">
-        </TextCell>
-        
-        <!--<VAriante 2=""></VAriante>-->
-        <!--<ViewCell>
-          <ViewCell.View>
-            <StackLayout Padding="5, 0, 0, 0"
-                         VerticalOptions="Center">
+        </TextCell>-->
 
-              <Label Text="{Binding Semester}"
-                     FontAttributes="Bold"
-                     FontSize="Medium" />
-
-              <StackLayout Orientation="Horizontal"
-                           Spacing="0">
-                <Label Text="{Grade}" />
-              <StackLayout Orientation="Horizontal"
-                           Spacing="0">
-                  <Label Text="{Grade}" />
-
-              </StackLayout>
-            </StackLayout>
-          </StackLayout>
-
-        </ViewCell.View>
-        </ViewCell>-->
-
-
-            <!--<VAriante 2=""></VAriante>-->
-        <!--<ViewCell>
+        <ViewCell>
+          <!--<ViewCell.View>-->
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="2*" />  
               <ColumnDefinition Width="2*" />  
-              <ColumnDefinition Width="2*" />    Take 20% of remainder 
+              <ColumnDefinition Width="2*"/>     
               <ColumnDefinition Width="2*"/>  
               <ColumnDefinition Width="2*"/>   
             </Grid.ColumnDefinitions>
-            <Label Text="{Binding Id}"/>
+            <!--<Label Text="{Binding Id}"/>-->
             <Label Grid.Column="0" Text="{Binding Semester}" />
             <Label Grid.Column="1" Text="{Binding Period}" />
-            <Label Grid.Column="2" Text="{Binding TeacherId}" />
+            <Label Grid.Column="2" Text="{Binding TeacherName.Name}" />
             <Label Grid.Column="3" Text="{Binding CourseId}" />
             <Label Grid.Column="4" Text="{Binding Grade}" />
           </Grid>
-        </ViewCell>-->
+            <!--</ViewCell.View>-->
+       
+       <!--<ViewCell.View>
+                <StackLayout>
+                  <Label Text="{Binding Semester}" TextColor="Black" />
+                  <Label Text="{Binding Period}" TextColor="Black" />
+                  <Label Text="{Binding Grade}" TextColor="Black" />
+                </StackLayout>
+              </ViewCell.View>-->  
+        </ViewCell>
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
