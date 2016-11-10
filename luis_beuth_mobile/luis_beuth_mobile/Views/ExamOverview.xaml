@@ -8,10 +8,10 @@
     <OnPlatform x:TypeArguments="Thickness"
     iOS = "20,40,20,20"
                 Android ="20,20,20,20"/>
-              
+
   </ContentPage.Padding>
   <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
- 
+
   <ListView ItemsSource="{Binding AllExams}">
     <ListView.ItemTemplate>
       <!--<VAriante 1=""></VAriante>-->
@@ -24,28 +24,31 @@
           <!--<ViewCell.View>-->
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="2*" />  
-              <ColumnDefinition Width="2*" />  
-              <ColumnDefinition Width="2*"/>     
-              <ColumnDefinition Width="2*"/>  
-              <ColumnDefinition Width="2*"/>   
+              <ColumnDefinition Width="20*" />
+              <ColumnDefinition Width="20*" />
+              <ColumnDefinition Width="14.3*"/>
+              <ColumnDefinition Width="13.3*"/>
+              <ColumnDefinition Width="12.4*"/>
+              <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
             <!--<Label Text="{Binding Id}"/>-->
-            <Label Grid.Column="0" Text="{Binding Semester}" />
-            <Label Grid.Column="1" Text="{Binding Period}" />
-            <Label Grid.Column="2" Text="{Binding TeacherName.Name}" />
-            <Label Grid.Column="3" Text="{Binding CourseId}" />
+            <Label Grid.Column="0" Text="{Binding CourseId}" Font="Bold" />
+            <Label Grid.Column="1" Text="{Binding TeacherId}" />
+            <Label Grid.Column="2" Text="{Binding Semester}" />
+            <Label Grid.Column="3" Text="{Binding Period}" />
             <Label Grid.Column="4" Text="{Binding Grade}" />
+            <Label Grid.Column="5" Text="{Binding Date}" />
+
           </Grid>
-            <!--</ViewCell.View>-->
-       
-       <!--<ViewCell.View>
+          <!--</ViewCell.View>-->
+
+          <!--<ViewCell.View>
                 <StackLayout>
                   <Label Text="{Binding Semester}" TextColor="Black" />
                   <Label Text="{Binding Period}" TextColor="Black" />
                   <Label Text="{Binding Grade}" TextColor="Black" />
                 </StackLayout>
-              </ViewCell.View>-->  
+              </ViewCell.View>-->
         </ViewCell>
       </DataTemplate>
     </ListView.ItemTemplate>
