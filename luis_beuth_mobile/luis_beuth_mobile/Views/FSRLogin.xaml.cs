@@ -18,6 +18,11 @@ namespace luis_beuth_mobile.Views
 					passwordEntry
 				}
 			};
+
+		}
+		public void Login( object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new ScanView());
 		}
 	}
 }

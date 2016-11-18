@@ -10,7 +10,7 @@
       <Label Text="Password" />
       <Entry Text="{Binding Path=Password}" IsPassword="true" x:Name="passwordEntry" />
 
-      <Button Text="Login" Clicked="OnLoginClicked" />
+      <Button Text="Login" Clicked="Login" />
 
     </StackLayout>
   </ContentPage.Content>
