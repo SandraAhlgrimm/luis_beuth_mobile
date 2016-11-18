@@ -68,6 +68,7 @@
       <DependentUpon>QRCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BarcodeScanner.cs" />
+    <Compile Include="ViewModels\FSRLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">

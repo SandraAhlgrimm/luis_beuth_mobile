@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views
 {
-    public partial class FSRLogin : ContentPage
-    {
-        public FSRLogin()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class FSRLogin : ContentPage
+	{
+		public FSRLogin()
+		{
+			InitializeComponent();
+
+			passwordEntry = new Entry { Text = "" };
+			Content = new StackLayout
+			{
+				Padding = new Thickness(10, 40, 10, 10),
+				Children = {
+					new Label { Text = "Passwort" },
+					passwordEntry
+				}
+			};
+		}
+	}
 }
