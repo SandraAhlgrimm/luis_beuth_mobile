@@ -19,15 +19,16 @@ namespace luis_beuth_mobile.Views
 				DisplayAlert("Validation Error", "Username and Password are required", "Re-try");
 			}
 			else {
-				sendToBE(passwordEntry.Text );
+				SendToBe(passwordEntry.Text);
+			    Navigation.PushAsync(new ScanView());
 			}
-			Navigation.PushAsync(new ScanView());
 		}
 
 
-		void sendToBE(string text)
+	    private async void SendToBe(string text)
 		{
-			throw new NotImplementedException();
+		    var restLogin = new RESTLogin();
+		    await restLogin.Validate(12345, text); //TODO: send StudentID
 		}
-}
+    }
 }
