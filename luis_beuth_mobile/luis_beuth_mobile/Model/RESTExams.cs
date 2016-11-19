@@ -16,7 +16,7 @@ namespace luis_beuth_mobile.Model
         {
             var http = new HttpClient();
             string url = "http://luis-beuth.azurewebsites.net/api/exam";
-            var response = await http.GetAsync(url); ;
+            var response = await http.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
