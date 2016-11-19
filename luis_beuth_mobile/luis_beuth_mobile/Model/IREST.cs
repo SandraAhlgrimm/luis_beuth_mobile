@@ -10,8 +10,6 @@ namespace luis_beuth_mobile.Model
     {
         Task<List<T>> Get();
 
-        Task<T> GetById(int id);
-
-        
+        Task<T> GetById(int id);     
     }
 }
