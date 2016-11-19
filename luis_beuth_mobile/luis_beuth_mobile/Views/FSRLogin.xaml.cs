@@ -10,19 +10,24 @@ namespace luis_beuth_mobile.Views
 			InitializeComponent();
 
 			passwordEntry = new Entry { Text = "" };
-			Content = new StackLayout
-			{
-				Padding = new Thickness(10, 40, 10, 10),
-				Children = {
-					new Label { Text = "Passwort" },
-					passwordEntry
-				}
-			};
 
 		}
 		public void Login( object sender, EventArgs e)
 		{
+			if (String.IsNullOrEmpty(passwordEntry.Text))
+			{
+				DisplayAlert("Validation Error", "Username and Password are required", "Re-try");
+			}
+			else {
+				sendToBE(passwordEntry.Text );
+			}
 			Navigation.PushAsync(new ScanView());
 		}
-	}
+
+
+		void sendToBE(string text)
+		{
+			throw new NotImplementedException();
+		}
+}
 }

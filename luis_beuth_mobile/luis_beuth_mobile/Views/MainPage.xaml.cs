@@ -22,8 +22,8 @@ namespace luis_beuth_mobile.Views
             var item = e.SelectedItem as DetailItem;
             if (item != null)
             {
-				//Detail = new NavigationPage((Page)Activator.CreateInstance(item.targetPage));
-                Detail = (Page)Activator.CreateInstance(item.targetPage);
+				Detail = new NavigationPage((Page)Activator.CreateInstance(item.targetPage));
+                //Detail = (Page)Activator.CreateInstance(item.targetPage);
                 masterPage.ListView.SelectedItem = null;
                 IsPresented = false;
             }
