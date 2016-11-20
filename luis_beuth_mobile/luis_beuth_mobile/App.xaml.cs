@@ -14,17 +14,11 @@ namespace luis_beuth_mobile
         {
             InitializeComponent();
 
-            Debug.WriteLine("LOG: Entry Point");
             if (Application.Current.Properties.ContainsKey("studentId"))
             {
                 var studentId = Application.Current.Properties["studentId"] as string;
                 Debug.WriteLine("LOG: Read " + studentId + " as Login");
-            } else
-            {
-                // ToDo: Call QR Scanner to Login
-                Debug.WriteLine("LOG: No Student ID");
-            }
-            
+            } 
 
             MainPage =  new luis_beuth_mobile.Views.MainPage();
         }

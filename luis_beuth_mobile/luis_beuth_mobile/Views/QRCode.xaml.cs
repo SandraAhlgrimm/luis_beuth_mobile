@@ -32,27 +32,32 @@ namespace luis_beuth_mobile.Views
 
             if (Application.Current.Properties.ContainsKey("studentId"))
             {
-                var studentId = Application.Current.Properties["studentId"] as string;
-                Debug.WriteLine(studentId);
-                barcode.BarcodeValue = studentId;
+                SetStudentId();
             }
             else
             {
-                // TODO: avoid setting barcodevalue to S0000000
                 barcode.BarcodeValue = "S0000000";
                 StudentLogin(this, EventArgs.Empty);
             }
 
-            Debug.WriteLine("LOG: Generating QR Code with Value: " + barcode.BarcodeValue);
-
-            Content = barcode;
-
-            
+            Content = barcode;           
         }
 
         private async void StudentLogin(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new BarcodeScannerLogin()));
+            MessagingCenter.Subscribe<string>(this, "LoginSuccessful", (msg) =>
+            {
+                SetStudentId();
+            });
         }
+
+        private void SetStudentId()
+        {
+            var studentId = Application.Current.Properties ["studentId"] as string;
+            barcode.BarcodeValue = studentId;
+            Content = barcode;
+        }
+
     }
 }

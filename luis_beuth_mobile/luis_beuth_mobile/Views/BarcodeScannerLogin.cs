@@ -39,6 +39,8 @@ namespace luis_beuth_mobile
                         // Saving scanned barcode as student id
                         Application.Current.Properties["studentId"] = result.Text;
                         await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");
+                        MessagingCenter.Send(result.Text, "LoginSuccessful");
+
                         await Navigation.PopModalAsync();
                     } else
                     {
@@ -77,14 +79,6 @@ namespace luis_beuth_mobile
 
             await DisplayAlert("Login", "Scanne bitte den Barcode deines Studentenausweises ein", "OK");
 
-            /*try
-			{
-				//zxing.IsScanning = true;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine("Error: " + ex.Message);
-			}*/
         }
 
 		protected override void OnDisappearing()
