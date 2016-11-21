@@ -14,7 +14,7 @@ namespace luis_beuth_mobile
     public class RESTSTudentSignUp
     {
 
-        public async void addStudent(string name, int matNum)
+        public async Task addStudent(string name, int matNum)
         {
             var httpClient = new HttpClient();
 
@@ -26,7 +26,6 @@ namespace luis_beuth_mobile
             string url = "http://luis-beuth.azurewebsites.net/api/student/";
 
             var content = new StringContent(studentJSON.ToString(), Encoding.UTF8, "application/json");
-
             var result = httpClient.PostAsync(url, content).Result;
         }
     }

@@ -23,7 +23,7 @@ namespace luis_beuth_mobile
 			zxing.OnScanResult += (result) =>
 				Device.BeginInvokeOnMainThread(async () =>
 				{
-
+                    Debug.WriteLine("LOG: CALL");
 					// Stop analysis until we navigate away so we don't keep reading barcodes
 					zxing.IsAnalyzing = false;
 
@@ -36,14 +36,21 @@ namespace luis_beuth_mobile
                     if ( length == 7 && first.Equals('S') && last.Equals('0'))
                     {
                         // Saving scanned barcode as student id
-                        Application.Current.Properties["studentId"] = result.Text;
-                        await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");               
+                        if (!Application.Current.Properties.ContainsKey("studentId"))
+                        {
+                            Application.Current.Properties["studentId"] = result.Text;
 
-                        PostStudent(text, (string)Application.Current.Properties["name"]);
+                            await PostStudent(text, (string)Application.Current.Properties["name"]);
 
-                        MessagingCenter.Send(result.Text, "LoginSuccessful");
+                            MessagingCenter.Send(result.Text, "LoginSuccessful");
+                            await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");
 
-                        await Navigation.PopModalAsync();
+                            Debug.WriteLine(Navigation.NavigationStack);
+                            Debug.WriteLine(Navigation.NavigationStack.Count);
+
+                            await Navigation.PopModalAsync();
+                        }
+                       
                     } else
                     {
                         await DisplayAlert("Login", "Ungültigen Code eingescannt!", "Nochmal einscannen");
@@ -79,7 +86,6 @@ namespace luis_beuth_mobile
 
 			await CheckForCameraPermissions();
             await Navigation.PushModalAsync(new NavigationPage(new Views.StudentLogin()));
-            //await DisplayAlert("Login", "Scanne bitte den Barcode deines Studentenausweises ein", "OK");
         }
 
 		protected override void OnDisappearing()
@@ -120,12 +126,12 @@ namespace luis_beuth_mobile
 			}
 		}
 
-        private void PostStudent(string id, string name)
+        private async Task PostStudent(string id, string name)
         {
             Debug.WriteLine("LOG: DEBUG");
             Debug.WriteLine(id + " : " + name);
             var signInClient = new RESTSTudentSignUp();
-            signInClient.addStudent(name, Int32.Parse(id));
+            await signInClient.addStudent(name, Int32.Parse(id));
         }
 
         protected override bool OnBackButtonPressed()

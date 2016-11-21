@@ -14,7 +14,7 @@ namespace luis_beuth_mobile.Views
 		{
             if (String.IsNullOrEmpty(studentName.Text))
 			{
-				DisplayAlert("Fehler", "Ein Name wird benötigt", "Re-try");
+				DisplayAlert("Fehler", "Bitte gib deinen Namen ein", "Re-try");
 			}
 			else {
 				SaveName(studentName.Text);
