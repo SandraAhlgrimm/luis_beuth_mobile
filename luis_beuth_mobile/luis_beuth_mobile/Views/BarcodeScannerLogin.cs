@@ -27,18 +27,20 @@ namespace luis_beuth_mobile
 					// Stop analysis until we navigate away so we don't keep reading barcodes
 					zxing.IsAnalyzing = false;
 
-                    
                     // Validate result
-                    var text = result.Text;
+                    var text = result.Text.Substring(1, result.Text.Length - 1);
                     var length = text.Length;
-                    var first = text[0];
+                    var first = result.Text[0];
                     var last = text[length - 1];
 
-                    if ( length == 8 && first.Equals('S') && last.Equals('0'))
+                    if ( length == 7 && first.Equals('S') && last.Equals('0'))
                     {
                         // Saving scanned barcode as student id
                         Application.Current.Properties["studentId"] = result.Text;
-                        await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");
+                        await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");               
+
+                        PostStudent(text, (string)Application.Current.Properties["name"]);
+
                         MessagingCenter.Send(result.Text, "LoginSuccessful");
 
                         await Navigation.PopModalAsync();
@@ -76,9 +78,8 @@ namespace luis_beuth_mobile
 			base.OnAppearing();
 
 			await CheckForCameraPermissions();
-
-            await DisplayAlert("Login", "Scanne bitte den Barcode deines Studentenausweises ein", "OK");
-
+            await Navigation.PushModalAsync(new NavigationPage(new Views.StudentLogin()));
+            //await DisplayAlert("Login", "Scanne bitte den Barcode deines Studentenausweises ein", "OK");
         }
 
 		protected override void OnDisappearing()
@@ -118,6 +119,14 @@ namespace luis_beuth_mobile
 				//LabelGeolocation.Text = "Error: " + ex;
 			}
 		}
+
+        private void PostStudent(string id, string name)
+        {
+            Debug.WriteLine("LOG: DEBUG");
+            Debug.WriteLine(id + " : " + name);
+            var signInClient = new RESTSTudentSignUp();
+            signInClient.addStudent(name, Int32.Parse(id));
+        }
 
         protected override bool OnBackButtonPressed()
         {
