@@ -1,7 +1,6 @@
 ﻿using luis_beuth_mobile.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace luis_beuth_mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            masterPage.ListView.ItemSelected += ListView_ItemSelected;;
+            masterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

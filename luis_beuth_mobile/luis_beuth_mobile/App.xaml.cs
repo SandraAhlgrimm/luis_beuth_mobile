@@ -17,7 +17,6 @@ namespace luis_beuth_mobile
             if (Application.Current.Properties.ContainsKey("studentId"))
             {
                 var studentId = Application.Current.Properties["studentId"] as string;
-                Debug.WriteLine("LOG: Read " + studentId + " as Login");
             } 
 
             MainPage =  new luis_beuth_mobile.Views.MainPage();
