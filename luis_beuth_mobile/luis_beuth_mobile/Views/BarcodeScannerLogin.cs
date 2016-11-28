@@ -38,9 +38,9 @@ namespace luis_beuth_mobile
                         // Saving scanned barcode as student id
                         if (!Application.Current.Properties.ContainsKey("studentId"))
                         {
-                            Application.Current.Properties["studentId"] = result.Text;
+                            Application.Current.Properties["studentId"] = text;
 
-                            await PostStudent(text, (string)Application.Current.Properties["name"]);
+                            await PostStudent(Int32.Parse(text), (string)Application.Current.Properties["name"]);
 
                             MessagingCenter.Send(result.Text, "LoginSuccessful");
                             await DisplayAlert("Login", "Erfolgreich mit " + result.Text + " eingeloggt!", "OK");
@@ -126,12 +126,12 @@ namespace luis_beuth_mobile
 			}
 		}
 
-        private async Task PostStudent(string id, string name)
+        private async Task PostStudent(int id, string name)
         {
             Debug.WriteLine("LOG: DEBUG");
             Debug.WriteLine(id + " : " + name);
             var signInClient = new RESTSTudentSignUp();
-            await signInClient.addStudent(name, Int32.Parse(id));
+            await signInClient.addStudent(name, id);
         }
 
         protected override bool OnBackButtonPressed()
