@@ -6,15 +6,20 @@ using Android.App;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("luis_beuth_mobile.Droid")]
+[assembly: AssemblyTitle("LUIS Klausuren")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("luis_beuth_mobile.Droid")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyProduct("LUIS Klausuren")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
+//#if DEBUG
+//[assembly: Application(Debuggable = true, Icon = "@drawable/icon_name")]
+//#else
+//[assembly: Application(Debuggable = false, Icon = "@drawable/icon_name")]
+//#endif
 
 // Version information for an assembly consists of the following four values:
 //
