@@ -18,6 +18,8 @@ namespace luis_beuth_mobile.Views
         {
 			InitializeComponent();
 
+            Debug.WriteLine("Generating QR-Code");
+
 			barcode = new ZXingBarcodeImageView
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -27,9 +29,35 @@ namespace luis_beuth_mobile.Views
 			barcode.BarcodeOptions.Width = 300;
 			barcode.BarcodeOptions.Height = 300;
 			barcode.BarcodeOptions.Margin = 10;
-			barcode.BarcodeValue = "S7983464";
 
-			Content = barcode;
-		}
+            if (Application.Current.Properties.ContainsKey("studentId"))
+            {
+                SetStudentId();
+            }
+            else
+            {
+                barcode.BarcodeValue = "S0000000";
+                StudentLogin(this, EventArgs.Empty);
+            }
+
+            Content = barcode;           
+        }
+
+        private async void StudentLogin(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new BarcodeScannerLogin()));
+            MessagingCenter.Subscribe<string>(this, "LoginSuccessful", (msg) =>
+            {
+                SetStudentId();
+            });
+        }
+
+        private void SetStudentId()
+        {
+            var studentId = Application.Current.Properties ["studentId"] as string;
+            barcode.BarcodeValue = studentId;
+            Content = barcode;
+        }
+
     }
 }
