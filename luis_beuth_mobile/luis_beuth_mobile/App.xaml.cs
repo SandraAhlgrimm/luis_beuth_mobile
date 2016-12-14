@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,11 @@ namespace luis_beuth_mobile
         public App()
         {
             InitializeComponent();
+
+            if (Application.Current.Properties.ContainsKey("studentId"))
+            {
+                var studentId = Application.Current.Properties["studentId"] as string;
+            } 
 
             MainPage =  new luis_beuth_mobile.Views.MainPage();
         }
