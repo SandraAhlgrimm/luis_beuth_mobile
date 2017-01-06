@@ -10,5 +10,6 @@ namespace luis_beuth_mobile.Model
     {
         public string Title { get; set; }
         public Type targetPage { get; set; }
+        public string IconSource { get; internal set; }
     }
 }

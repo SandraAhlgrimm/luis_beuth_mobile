@@ -12,7 +12,7 @@
 
   </ContentPage.Padding>
   <ContentPage.Content>
-    <StackLayout VerticalOptions="StartAndExpand">
+    <StackLayout>
 
       <Label Text="Bei Fragen zu deinen ausgeliehenen Klausuren, richte Dich bitte direkt an das INI-Büro deines Fachbereiches." />
       <Button Text="Mail" />
