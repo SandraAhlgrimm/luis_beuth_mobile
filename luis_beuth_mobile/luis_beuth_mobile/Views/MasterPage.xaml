@@ -2,14 +2,34 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="luis_beuth_mobile.Views.MasterPage"
-             Title="title1">
+             Title="LUIS Klausuren">
+  
+  <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+                iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+
+  </ContentPage.Padding>
 
   <ContentPage.Content>
     <StackLayout VerticalOptions="FillAndExpand">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="4*" />
+          <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="2*" />
+          <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+      <Image Grid.Column="0" Grid.Row="0" Source="Logo3.png"/>
+      <!--<Label Text ="LUIS Klausuren" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Font="Bold" />-->
+      </Grid>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>
-            <ImageCell Text="{Binding Title}"  />
+            <ImageCell Text="{Binding Title}" />
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using luis_beuth_mobile.ViewModels;
+using luis_beuth_mobile.Views;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,6 +10,13 @@ using Xamarin.Forms;
 
 namespace luis_beuth_mobile
 {
+    //public static class ViewModelLocator
+    //{
+    //    static StudentProfileViewModel studentsVM;
+    //    public static StudentProfileViewModel StudentProfileViewModel
+    //        => studentsVM ?? (studentsVM = new StudentProfileViewModel());
+
+    //}
     public partial class App : Application
     {
         public App()

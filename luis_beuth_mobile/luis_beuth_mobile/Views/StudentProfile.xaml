@@ -2,17 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="luis_beuth_mobile.Views.StudentProfile"
-             Title="Profile">
+              Title="Profil"
+               >
+    <!--xmlns:design="clr-namespace:StudentProfile;assembly=StudentProfile"
+             BindingContext="{x:Static design:ViewModelLocator.StudentProfileViewModel}"-->
+
+    <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+                iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+
+  </ContentPage.Padding>
 
  <ContentPage.Content>
-    <StackLayout VerticalOptions="StartAndExpand" Padding="30">
-
-      <Label Text ="Name:"></Label>
-      <Label Text ="{Binding Name }"></Label>
-      <Label Text ="Matrikelnummer"></Label>
-      <Label Text ="{Binding MatriculationNumber}"></Label>
-
-    </StackLayout>
+     <Grid>
+       <Grid.RowDefinitions>
+         <RowDefinition Height="0.8*" />
+         <RowDefinition Height="0.8*" />
+         <RowDefinition Height="0.8*" />
+         <RowDefinition Height="0.8*" />
+         <RowDefinition Height="1.5*" />
+         <RowDefinition Height="2*" />
+         <RowDefinition Height="6*" />
+         <RowDefinition Height="6*" />
+       </Grid.RowDefinitions>
+       <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+       </Grid.ColumnDefinitions>
+        
+      <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="profile.png"/>
+      <Label Text ="Name:" Grid.Column="1" Grid.Row="0" Font="Bold" />
+      <Label Text ="{Binding Name}" Grid.Column="1" Grid.Row="1"/>
+      <Label Text ="Matrikelnummer:" Grid.Column="1" Grid.Row="2" Font="Bold" />
+      <Label Text ="{Binding MatriculationNumber}" Grid.Column="1" Grid.Row="3"/>
+       <Button Text="Profil anpassen" Clicked="" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"/>
+       
+      </Grid>
+ 
   </ContentPage.Content>
 
 </ContentPage>

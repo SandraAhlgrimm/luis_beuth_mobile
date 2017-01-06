@@ -15,7 +15,7 @@ namespace luis_beuth_mobile.Model
         public async Task<List<Exam>> Get()
         {
             var http = new HttpClient();
-            string url = "http://localhost:5000/api/exam";
+            string url = "http://luis-beuth.azurewebsites.net/api/exam";
             var response = await http.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {

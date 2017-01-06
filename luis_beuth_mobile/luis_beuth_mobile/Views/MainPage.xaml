@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:luis_beuth_mobile.Views;"
              x:Class="luis_beuth_mobile.Views.MainPage"
 		Title="Back">
+  
+  <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+    iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+
+  </ContentPage.Padding>
   <MasterDetailPage.Master>
     <local:MasterPage x:Name="masterPage"></local:MasterPage>
   </MasterDetailPage.Master>
