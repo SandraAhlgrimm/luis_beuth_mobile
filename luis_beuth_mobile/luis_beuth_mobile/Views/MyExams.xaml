@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="luis_beuth_mobile.Views.ExamOverview"
-             Title="Klausuren">
-  <ContentPage.Padding>
+             x:Class="luis_beuth_mobile.Views.MyExams"
+             Title="Meine Klausuren">
+<ContentPage.Padding>
     <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
     <OnPlatform x:TypeArguments="Thickness"
     iOS = "20,40,20,20"

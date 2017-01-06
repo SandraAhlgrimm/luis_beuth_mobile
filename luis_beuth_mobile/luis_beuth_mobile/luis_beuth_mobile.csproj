@@ -59,9 +59,19 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\StudentProfileViewModel.cs" />
     <Compile Include="ViewModels\ExamOverviewViewModel.cs" />
+    <Compile Include="ViewModels\MyExamsViewModel.cs" />
     <Compile Include="Views\BarcodeScannerLogin.cs" />
     <Compile Include="Views\ExamOverview.xaml.cs">
       <DependentUpon>ExamOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impressum.xaml.cs">
+      <DependentUpon>Impressum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyExams.xaml.cs">
+      <DependentUpon>MyExams.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentProfile.xaml.cs">
       <DependentUpon>StudentProfile.xaml</DependentUpon>
@@ -204,6 +214,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StudentProfile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Help.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Impressum.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MyExams.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

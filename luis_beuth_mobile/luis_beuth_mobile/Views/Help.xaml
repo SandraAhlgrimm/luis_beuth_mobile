@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="luis_beuth_mobile.Views.Help"
+             Title="Feedback und Hilfe">
+  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+    iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+
+  </ContentPage.Padding>
+  <ContentPage.Content>
+    <StackLayout VerticalOptions="StartAndExpand">
+
+      <Label Text="Bei Fragen zu deinen ausgeliehenen Klausuren, richte Dich bitte direkt an das INI-Büro deines Fachbereiches." />
+      <Button Text="Mail" />
+      <Label Text="Wenn Du Probleme, Anregungen oder Sonstiges zu dieser App hast, kannst Du uns eine Mail schicken." />
+      <Button Text="Mail" />
+
+
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

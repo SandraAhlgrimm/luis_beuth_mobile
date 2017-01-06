@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="luis_beuth_mobile.Views.Impressum"
+             Title="Impressum">
+  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <ContentPage.Padding>
+    <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
+    <OnPlatform x:TypeArguments="Thickness"
+    iOS = "20,40,20,20"
+                Android ="20,20,20,20"/>
+</ContentPage.Padding>
+  <ContentPage.Content>
+    <StackLayout VerticalOptions="StartAndExpand" Padding="30">
+
+      <Label Text="Diese App ist im Rahmen des Masterkurses 'Entwicklung mobiler Applikationen' in Kooperation mit dem Fachbereich 3 im Wintersemester 2016/17 entstanden. Alle Rechte liegen bei Sandra Kriemann, Raul Vinh Qua Ngyuen und Friederike Fröbel." />
+
+
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
