@@ -37,7 +37,7 @@
       <Label Text ="{Binding Name}" Grid.Column="1" Grid.Row="1"/>
       <Label Text ="Matrikelnummer:" Grid.Column="1" Grid.Row="2" Font="Bold" />
       <Label Text ="{Binding MatriculationNumber}" Grid.Column="1" Grid.Row="3"/>
-       <Button Text="Profil anpassen" Clicked="" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"/>
+       <Button Text="Profil anpassen" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"/>
        
       </Grid>
  
