@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views
@@ -8,6 +9,10 @@ namespace luis_beuth_mobile.Views
 		public StudentLogin()
 		{
 			InitializeComponent();
+            Debug.WriteLine("LOG: INIT LOGIN");
+
+            Debug.WriteLine("LOG: Mainpage-->");
+            Debug.WriteLine(App.Current.MainPage);
 		}
 		public void Login( object sender, EventArgs e)
 		{
@@ -28,9 +33,7 @@ namespace luis_beuth_mobile.Views
 
         protected override bool OnBackButtonPressed()
         {
-            return true;
-           
-            
+            return (!Application.Current.Properties.ContainsKey("studentId"));
         }
     }
 }

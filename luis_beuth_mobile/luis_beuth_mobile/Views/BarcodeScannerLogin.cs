@@ -13,8 +13,13 @@ namespace luis_beuth_mobile
 		ZXingScannerView zxing;
 		ZXingDefaultOverlay overlay;
 
+        Boolean called = false;
+
 		public BarcodeScannerLogin()
 		{
+
+            Debug.WriteLine("LOG: BARCODESCANNERLOGIN");
+
             zxing = new ZXingScannerView
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -83,9 +88,14 @@ namespace luis_beuth_mobile
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
+            await CheckForCameraPermissions();
 
-			await CheckForCameraPermissions();
-            await Navigation.PushModalAsync(new NavigationPage(new Views.StudentLogin()));
+            if (!called)
+            {
+                called = true;
+                await Navigation.PushModalAsync(new NavigationPage(new Views.StudentLogin()));
+            }
+                            
         }
 
 		protected override void OnDisappearing()
@@ -136,7 +146,7 @@ namespace luis_beuth_mobile
 
         protected override bool OnBackButtonPressed()
         {
-            return true;
+            return (!Application.Current.Properties.ContainsKey("studentId"));
         }
     }
 }
