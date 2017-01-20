@@ -13,6 +13,12 @@ namespace luis_beuth_mobile.Views
         public Help()
         {
             InitializeComponent();
+
+            Button emailButton = new Button { Text = "Mail" };
+            emailButton.Clicked += (sender, e) =>
+            {
+                Device.OpenUri(new Uri("mailto:ryan.hatfield@test.com"));
+            };
         }
 
 

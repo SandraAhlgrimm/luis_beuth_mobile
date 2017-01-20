@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="luis_beuth_mobile.Views.Help"
              Title="Feedback und Hilfe">
-  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
   <ContentPage.Padding>
     <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
     <OnPlatform x:TypeArguments="Thickness"
@@ -14,8 +13,10 @@
   <ContentPage.Content>
     <StackLayout>
 
+      <Label Text="Fachliche Probleme" Font="Bold" />
       <Label Text="Bei Fragen zu deinen ausgeliehenen Klausuren, richte Dich bitte direkt an das INI-Büro deines Fachbereiches." />
-      <Button Text="Mail" />
+      <Button Text="Mail an FSR" />
+      <Label Text="Probleme mit der App" Font="Bold"/>
       <Label Text="Wenn Du Probleme, Anregungen oder Sonstiges zu dieser App hast, kannst Du uns eine Mail schicken." />
       <Button Text="Mail" />
 

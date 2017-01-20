@@ -17,9 +17,8 @@
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
     <NavigationPage>
-      <x:Arguments>
-        <local:QRCode></local:QRCode>
-      </x:Arguments>
+      <Image Source="Logo3.png"/>
+      <Label Text ="Willkommen bei LUIS, dem Altklausuren Inventarsystem des Fachbereich 3 der Beuth Hochschule!" Font="Bold" />
     </NavigationPage>
   </MasterDetailPage.Detail>
 </MasterDetailPage>
