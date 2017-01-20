@@ -15,14 +15,14 @@ namespace luis_beuth_mobile.Views
             var detailPages = new List<DetailItem>();
 
             detailPages.Add(new DetailItem { Title = "Login", IconSource = "profile.png", targetPage = typeof(BarcodeScannerLogin) });
-            detailPages.Add(new DetailItem { Title = "Mein Profil", targetPage = typeof(StudentProfile) });
-            detailPages.Add(new DetailItem { Title = "Alle Klausuren", targetPage = typeof(ExamOverview) });
-            detailPages.Add(new DetailItem { Title = "Meine Klausuren", targetPage = typeof(MyExams) });
-            detailPages.Add(new DetailItem { Title="Mein QR Code", targetPage=typeof(QRCode) });
-            detailPages.Add(new DetailItem { Title = "FSR Login", targetPage = typeof(FSRLogin) });
+            detailPages.Add(new DetailItem { Title = "Mein Profil", IconSource = "profile.png", targetPage = typeof(StudentProfile) });
+            detailPages.Add(new DetailItem { Title = "Alle Klausuren", IconSource = "profile.png", targetPage = typeof(ExamOverview) });
+            detailPages.Add(new DetailItem { Title = "Meine Klausuren", IconSource = "profile.png", targetPage = typeof(MyExams) });
+            detailPages.Add(new DetailItem { Title="Mein QR Code", IconSource = "profile.png", targetPage = typeof(QRCode) });
+            detailPages.Add(new DetailItem { Title = "FSR Login", IconSource = "profile.png", targetPage = typeof(FSRLogin) });
             //detailPages.Add(new DetailItem { Title = "Klausur scannen", targetPage = typeof(BarcodeScanner) });
-            detailPages.Add(new DetailItem { Title = "Feedback & Hilfe", targetPage = typeof(Help) });
-            detailPages.Add(new DetailItem { Title = "Impressum", targetPage = typeof(Impressum) });
+            detailPages.Add(new DetailItem { Title = "Feedback & Hilfe", IconSource = "profile.png", targetPage = typeof(Help) });
+            detailPages.Add(new DetailItem { Title = "Impressum", IconSource = "profile.png", targetPage = typeof(Impressum) });
 
 
 
