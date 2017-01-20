@@ -13,6 +13,9 @@ namespace luis_beuth_mobile
         ZXingScannerView zxing;
         ZXingDefaultOverlay overlay;
 
+        String studentID;
+        String examID;
+
         public BarcodeScanner()
         {
             zxing = new ZXingScannerView
@@ -20,22 +23,30 @@ namespace luis_beuth_mobile
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
+
+            DisplayAlert("Barcode Scanner", "Bitte den QR-Code eines Studenten einscannen", "OK");
+
             zxing.OnScanResult += (result) =>
                 Device.BeginInvokeOnMainThread(async () =>
                 {
 
                     // Stop analysis until we navigate away so we don't keep reading barcodes
                     zxing.IsAnalyzing = false;
-
-                    // Saving scanned barcode as student id
-                    // TODO: distinguish if user wants to login or scan an exam
-                    Application.Current.Properties["studentId"] = result.Text;
+                    
+                    studentID = result.Text;
 
                     // Show an alert
-                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    await DisplayAlert("Barcode Scanner", "Bitte den QR-Code einer Klausur einscannen", "OK");
+
+                    examID = result.Text;
 
                     // Navigate away
-                    await Navigation.PopAsync();
+                    //await Navigation.PopAsync();
+
+                    Debug.WriteLine("DEBUGTEST: ");
+
+                    Debug.WriteLine("DEBUGTEST: ");
+
                 });
 
             overlay = new ZXingDefaultOverlay

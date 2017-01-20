@@ -24,8 +24,6 @@ namespace luis_beuth_mobile.Views
             detailPages.Add(new DetailItem { Title = "Feedback & Hilfe", targetPage = typeof(Help) });
             detailPages.Add(new DetailItem { Title = "Impressum", targetPage = typeof(Impressum) });
 
-
-
             listView.ItemsSource = detailPages;
         }
     }
