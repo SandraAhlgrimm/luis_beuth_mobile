@@ -43,9 +43,9 @@ namespace luis_beuth_mobile
                     // Navigate away
                     //await Navigation.PopAsync();
 
-                    Debug.WriteLine("DEBUGTEST: ");
+                    Debug.WriteLine("DEBUG StudentID: " + studentID);
 
-                    Debug.WriteLine("DEBUGTEST: ");
+                    Debug.WriteLine("DEBUGTEST examID: " + examID);
 
                 });
 
