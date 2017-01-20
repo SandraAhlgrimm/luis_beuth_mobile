@@ -25,13 +25,14 @@
           <ColumnDefinition Width="2*" />
           <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-      <Image Grid.Column="0" Grid.Row="0" RowSource="Logo3.png"/>
-      <Label Text ="LUIS Klausuren" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Font="Bold" />
+      <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="Logo3.png"/>
+      <Label Text ="LUIS" Grid.Column="1" Grid.Row="1" Font="Bold" />
+        <Label Text ="Altklausuren Inventarsystem" Grid.Column="1" Grid.Row="2"  />
       </Grid>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>
-            <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />
+            <ImageCell Text="{Binding Title}" TextColor="#00949d" ImageSource="{Binding IconSource}" />
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
