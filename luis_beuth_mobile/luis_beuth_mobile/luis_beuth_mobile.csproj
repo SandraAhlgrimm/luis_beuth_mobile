@@ -41,6 +41,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\RESTRents.cs" />
     <Compile Include="Model\RESTStudentSignUp.cs" />
     <Compile Include="Model\Data\Course.cs" />
     <Compile Include="Model\Data\Exam.cs" />

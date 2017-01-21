@@ -18,13 +18,11 @@ namespace luis_beuth_mobile.Views
             detailPages.Add(new DetailItem { Title = "Mein Profil", targetPage = typeof(StudentProfile) });
             detailPages.Add(new DetailItem { Title = "Alle Klausuren", targetPage = typeof(ExamOverview) });
             detailPages.Add(new DetailItem { Title = "Meine Klausuren", targetPage = typeof(MyExams) });
-            detailPages.Add(new DetailItem { Title="Mein QR Code", targetPage=typeof(QRCode) });
+            detailPages.Add(new DetailItem { Title = "Mein QR Code", targetPage=typeof(QRCode) });
             detailPages.Add(new DetailItem { Title = "FSR Login", targetPage = typeof(FSRLogin) });
-            //detailPages.Add(new DetailItem { Title = "Klausur scannen", targetPage = typeof(BarcodeScanner) });
+            detailPages.Add(new DetailItem { Title = "Klausur scannen", targetPage = typeof(BarcodeScanner) });
             detailPages.Add(new DetailItem { Title = "Feedback & Hilfe", targetPage = typeof(Help) });
             detailPages.Add(new DetailItem { Title = "Impressum", targetPage = typeof(Impressum) });
-
-
 
             listView.ItemsSource = detailPages;
         }
