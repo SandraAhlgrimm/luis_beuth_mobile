@@ -5,6 +5,7 @@ using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 using System.Threading.Tasks;
+using Android.Media;
 
 namespace luis_beuth_mobile
 {
@@ -26,9 +27,9 @@ namespace luis_beuth_mobile
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
-            if (studentID.Length == 0)
+            if (studentID.Length == 0 && examID.Length == 0)
             {
-                scanStudentID();
+                checkQRCode();
             }
 
             overlay = new ZXingDefaultOverlay
@@ -47,15 +48,14 @@ namespace luis_beuth_mobile
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
 
-            scanLabel = new Label { Text = "QR-Code eines Studenten scannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
+            scanLabel = new Label { Text = "QR-Code einer Klausur oder eines Studenten einscannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
             grid.Children.Add(scanLabel, 0, 0);
 
             Content = grid;
         }
 
-        private void scanStudentID()
+        private void checkQRCode()
         {
-            
             zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
             {
                 // Stop analysis until we navigate away so we don't keep reading barcodes
@@ -71,17 +71,23 @@ namespace luis_beuth_mobile
                     }
                     else
                     {
-                        DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code eines Studenten einscannen!", "OK");
+                        if (isExamQR(res))
+                        {
+                            examID = res;
+                            sendReturnData();
+                        }
+                        else
+                        {
+                            DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code einscannen!", "OK");
+                        }
                     }
                 }
-      
-            });
-            
+            });   
         }
 
         private void scanExamQR()
         {
-
+            playSound();
             scanLabel.Text = "QR-Code einer Klausur einscannen";
             zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
             {
@@ -95,7 +101,7 @@ namespace luis_beuth_mobile
                     if (res.Length > 7 && !isDigitsOnly(res))
                     {
                         examID = res;
-                        sendData();
+                        sendRentData();
                     }
                     else
                     {
@@ -103,18 +109,72 @@ namespace luis_beuth_mobile
                     }
                 }
             });
-            
         }
 
-        private async Task sendData()
+        private async Task sendRentData()
         {
-            scanLabel.Text = "NICE!";
-            Debug.WriteLine("DEBUG_SEND DATA HERE");
+            playSound();
+            scanLabel.Text = "Klausur ausgeliehen!";
+            Debug.WriteLine("DEBUG_RENT");
             Debug.WriteLine("DEBUG_DATA_StudentID: " + studentID);
-            Debug.WriteLine("DEBUG_DATA_Exam: " + examID);
+            Debug.WriteLine("DEBUG_DATA_Exam: " + parseExamId(examID));
 
-            var signInClient = new RESTRents();
-            await signInClient.rentExam(1, 1);
+            var rentClient = new RESTRents();
+            await rentClient.rentExam(Int32.Parse(studentID), parseExamId(examID));
+        }
+
+        private async Task sendReturnData()
+        {
+            playSound();
+            scanLabel.Text = "Klausur zurückgegeben!";
+            Debug.WriteLine("DEBUG_RETURN");
+            Debug.WriteLine("DEBUG_DATA_ExamID: " + parseExamId(examID));
+
+            await rewriteLabel();
+            var rentClient = new RESTRents();
+            //await rentClient.returnExam(parseExamId(examID));
+        }
+
+        private int parseExamId(String exam)
+        {
+            return Int32.Parse(exam.Split('_')[0].Split(':')[1]);
+        }
+
+        private async Task rewriteLabel()
+        {
+            
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            var running = true;
+
+            while (running)
+            {
+                Debug.WriteLine("DEBUG_SW: " + sw.ElapsedMilliseconds);
+                if (sw.ElapsedMilliseconds > 2500)
+                {
+                    scanLabel.Text = "Weiteren QR Code einscannen!";
+                    running = false;
+                    sw.Reset();
+                } else
+                {
+                    scanLabel.Text = "Klausur zurückgegeben!";
+                }
+            }
+        }
+
+        bool isExamQR(string str)
+        {
+            var strings = str.Split('_');
+
+            if(strings[0].Split(':')[0] != "id")
+            {
+                return false;
+            }
+            if (strings[1].Split(':')[0] != "semester")
+            {
+                return false;
+            }
+            return true;
         }
 
         bool isDigitsOnly(string str)
@@ -178,6 +238,35 @@ namespace luis_beuth_mobile
                 Debug.WriteLine("Error: " + ex.Message);
                 //LabelGeolocation.Text = "Error: " + ex;
             }
+        }
+
+        public void playSound()
+        {
+            var duration = 1000;
+            var sampleRate = 8000;
+            var numSamples = duration * sampleRate;
+            var sample = new double[numSamples];
+            var freqOfTone = 10000;
+            byte[] generatedSnd = new byte[2 * numSamples];
+
+            for (int i = 0; i < numSamples; ++i)
+            {
+                sample[i] = Math.Sin(2 * Math.PI * i / (sampleRate / freqOfTone));
+            }
+
+            int idx = 0;
+            foreach (double dVal in sample)
+            {
+                short val = (short)(dVal * 32767);
+                generatedSnd[idx++] = (byte)(val & 0x00ff);
+                generatedSnd[idx++] = (byte)((val & 0xff00) >> 8);
+            }
+
+            var track = new AudioTrack(global::Android.Media.Stream.Music, sampleRate, ChannelOut.Mono, Encoding.Pcm16bit, numSamples, AudioTrackMode.Static);
+            track.Write(generatedSnd, 0, numSamples);
+            Debug.WriteLine("BEEEEEP");
+
+            track.Play();
         }
     }
 }
