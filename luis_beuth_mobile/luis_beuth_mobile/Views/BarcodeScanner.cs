@@ -13,8 +13,10 @@ namespace luis_beuth_mobile
         ZXingScannerView zxing;
         ZXingDefaultOverlay overlay;
 
-        String studentID;
-        String examID;
+        String studentID = "";
+        String examID = "";
+
+        Label scanLabel;
 
         public BarcodeScanner()
         {
@@ -24,35 +26,13 @@ namespace luis_beuth_mobile
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
-            DisplayAlert("Barcode Scanner", "Bitte den QR-Code eines Studenten einscannen", "OK");
-
-            zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-
-                    // Stop analysis until we navigate away so we don't keep reading barcodes
-                    zxing.IsAnalyzing = false;
-                    
-                    studentID = result.Text;
-
-                    // Show an alert
-                    await DisplayAlert("Barcode Scanner", "Bitte den QR-Code einer Klausur einscannen", "OK");
-
-                    examID = result.Text;
-
-                    // Navigate away
-                    //await Navigation.PopAsync();
-
-                    Debug.WriteLine("DEBUG StudentID: " + studentID);
-
-                    Debug.WriteLine("DEBUGTEST examID: " + examID);
-
-                });
+            if (studentID.Length == 0)
+            {
+                scanStudentID();
+            }
 
             overlay = new ZXingDefaultOverlay
             {
-                TopText = "Hold your phone up to the barcode",
-                BottomText = "Scanning will happen automatically",
                 ShowFlashButton = zxing.HasTorch,
             };
             overlay.FlashButtonClicked += (sender, e) =>
@@ -67,8 +47,84 @@ namespace luis_beuth_mobile
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
 
-            // The root page of your application
+            scanLabel = new Label { Text = "QR-Code eines Studenten scannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
+            grid.Children.Add(scanLabel, 0, 0);
+
             Content = grid;
+        }
+
+        private void scanStudentID()
+        {
+            
+            zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
+            {
+                // Stop analysis until we navigate away so we don't keep reading barcodes
+                zxing.IsAnalyzing = false;
+                if (studentID.Length == 0 && examID.Length == 0)
+                {
+                    var res = result.Text.Replace(System.Environment.NewLine, "");
+
+                    if (res.Length == 7 && isDigitsOnly(res))
+                    {
+                        studentID = res;
+                        scanExamQR();
+                    }
+                    else
+                    {
+                        DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code eines Studenten einscannen!", "OK");
+                    }
+                }
+      
+            });
+            
+        }
+
+        private void scanExamQR()
+        {
+
+            scanLabel.Text = "QR-Code einer Klausur einscannen";
+            zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
+            {
+                // Stop analysis until we navigate away so we don't keep reading barcodes
+                zxing.IsAnalyzing = false;
+
+                if (studentID.Length != 0 && examID.Length == 0)
+                {
+                    var res = result.Text.Replace(System.Environment.NewLine, "");
+
+                    if (res.Length > 7 && !isDigitsOnly(res))
+                    {
+                        examID = res;
+                        sendData();
+                    }
+                    else
+                    {
+                        DisplayAlert("Barcode Scanner", "Bitte einen Validen QR-Code für die Klausur einscannen!", "OK");
+                    }
+                }
+            });
+            
+        }
+
+        private async Task sendData()
+        {
+            scanLabel.Text = "NICE!";
+            Debug.WriteLine("DEBUG_SEND DATA HERE");
+            Debug.WriteLine("DEBUG_DATA_StudentID: " + studentID);
+            Debug.WriteLine("DEBUG_DATA_Exam: " + examID);
+
+            var signInClient = new RESTRents();
+            await signInClient.rentExam(1, 1);
+        }
+
+        bool isDigitsOnly(string str)
+        {
+            foreach (char c in str)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+            return true;
         }
 
         protected async override void OnAppearing()
