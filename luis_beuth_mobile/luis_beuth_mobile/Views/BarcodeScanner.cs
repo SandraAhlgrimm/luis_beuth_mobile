@@ -87,7 +87,6 @@ namespace luis_beuth_mobile
 
         private void scanExamQR()
         {
-            playSound();
             scanLabel.Text = "QR-Code einer Klausur einscannen";
             zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
             {
@@ -113,26 +112,17 @@ namespace luis_beuth_mobile
 
         private async Task sendRentData()
         {
-            playSound();
             scanLabel.Text = "Klausur ausgeliehen!";
-            Debug.WriteLine("DEBUG_RENT");
-            Debug.WriteLine("DEBUG_DATA_StudentID: " + studentID);
-            Debug.WriteLine("DEBUG_DATA_Exam: " + parseExamId(examID));
-
             var rentClient = new RESTRents();
             await rentClient.rentExam(Int32.Parse(studentID), parseExamId(examID));
         }
 
         private async Task sendReturnData()
         {
-            playSound();
             scanLabel.Text = "Klausur zurückgegeben!";
-            Debug.WriteLine("DEBUG_RETURN");
-            Debug.WriteLine("DEBUG_DATA_ExamID: " + parseExamId(examID));
-
             await rewriteLabel();
             var rentClient = new RESTRents();
-            //await rentClient.returnExam(parseExamId(examID));
+            await rentClient.returnExam(parseExamId(examID));
         }
 
         private int parseExamId(String exam)
@@ -142,24 +132,11 @@ namespace luis_beuth_mobile
 
         private async Task rewriteLabel()
         {
-            
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            var running = true;
+            Debug.WriteLine("REWRITE LABEL");
 
-            while (running)
-            {
-                Debug.WriteLine("DEBUG_SW: " + sw.ElapsedMilliseconds);
-                if (sw.ElapsedMilliseconds > 2500)
-                {
-                    scanLabel.Text = "Weiteren QR Code einscannen!";
-                    running = false;
-                    sw.Reset();
-                } else
-                {
-                    scanLabel.Text = "Klausur zurückgegeben!";
-                }
-            }
+            await Task.Delay(2000);
+            scanLabel.Text = "Weitere Klausur eintragen";
+
         }
 
         bool isExamQR(string str)

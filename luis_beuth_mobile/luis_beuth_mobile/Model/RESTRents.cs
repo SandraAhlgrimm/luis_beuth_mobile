@@ -19,21 +19,18 @@ namespace luis_beuth_mobile
             var httpClient = new HttpClient();
 
             dynamic data = new ExpandoObject();
-            Debug.WriteLine("RESULT");
             data.student = new ExpandoObject() as dynamic;
             data.student.matriculationNumber = studentId;
             data.examId = examId;
-
-            Debug.WriteLine("RESULT: " + studentId + " | " + examId);
-
+            
             var studentJSON = JsonConvert.SerializeObject(data);
             string url = "http://luis-beuth.azurewebsites.net/api/rent/";
 
             var content = new StringContent(studentJSON.ToString(), Encoding.UTF8, "application/json");
             
             var result = httpClient.PostAsync(url, content).Result;
-            Debug.WriteLine("RENT_content: " + content);
-            Debug.WriteLine("RENT_result: " + result);
+            Debug.WriteLine("RESTRent_rentExam()_content: " + content.ToString());
+            Debug.WriteLine("RESTRent_rentExam()_result: " + result);
         }
 
         public async Task returnExam(int examId)
@@ -41,16 +38,17 @@ namespace luis_beuth_mobile
             var httpClient = new HttpClient();
 
             dynamic data = new ExpandoObject();
-            data.examId = examId;
+            data.rent = new ExpandoObject() as dynamic;
+            data.rent.id = 1;
 
             var studentJSON = JsonConvert.SerializeObject(data);
-            string url = "http://luis-beuth.azurewebsites.net/api/rent/";
+            string url = "http://luis-beuth.azurewebsites.net/api/rent/1";
 
             var content = new StringContent(studentJSON.ToString(), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(url, content).Result;
-
-            Debug.WriteLine("RETURN_content: " + content);
-            Debug.WriteLine("RETURN_result: " + result);
+            var result = httpClient.PutAsync(url, content).Result;
+            
+            Debug.WriteLine("RESTRent_returnExam()_content: " + content.ToString());
+            Debug.WriteLine("RESTRent_returnExam()_result: " + result);
         }
     }
 }

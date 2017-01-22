@@ -24,7 +24,7 @@
           <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
       <Image Grid.Column="0" Grid.Row="0" Source="Logo3.png"/>
-      <!--<Label Text ="LUIS Klausuren" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Font="Bold" />-->
+      <Label Text ="LUIS Klausuren" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Font="Bold" />
       </Grid>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
         <ListView.ItemTemplate>
