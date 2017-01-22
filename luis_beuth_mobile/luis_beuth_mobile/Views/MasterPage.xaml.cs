@@ -1,13 +1,13 @@
 ﻿using luis_beuth_mobile.Model;
 using System.Collections.Generic;
-
+using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views
 {
     public partial class MasterPage : ContentPage
     {
-        public ListView ListView { get { return listView; } }
+        public Xamarin.Forms.ListView ListView { get { return ListView; } }
 
         public MasterPage()
         {
@@ -23,10 +23,7 @@ namespace luis_beuth_mobile.Views
             //detailPages.Add(new DetailItem { Title = "Klausur scannen", targetPage = typeof(BarcodeScanner) });
             detailPages.Add(new DetailItem { Title = "Feedback & Hilfe", IconSource = "ic_exit_to_app_black_18dp.png", targetPage = typeof(Help) });
             detailPages.Add(new DetailItem { Title = "Impressum", IconSource = "ic_exit_to_app_black_18dp.png", targetPage = typeof(Impressum) });
-
-
-
-            listView.ItemsSource = detailPages;
+            ListView.ItemsSource = detailPages;
         }
     }
 }

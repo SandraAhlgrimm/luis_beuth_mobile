@@ -14,13 +14,14 @@
 
   <ContentPage.Content>
     <StackLayout VerticalOptions="FillAndExpand">
-      <Grid>
+      <Grid> 
         <Grid.RowDefinitions>
           <RowDefinition Height="1*" />
           <RowDefinition Height="1*" />
           <RowDefinition Height="1*" />
           <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="2*" />
           <ColumnDefinition Width="3*" />
@@ -30,7 +31,7 @@
         <Label Text ="Altklausuren Inventarsystem" Grid.Column="1" Grid.Row="2"  />
       </Grid>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
-        <ListView.ItemTemplate>
+        <ListView.ItemTemplate> 
           <DataTemplate>
             <ImageCell Text="{Binding Title}" TextColor="#00949d" ImageSource="{Binding IconSource}" />
           </DataTemplate>
