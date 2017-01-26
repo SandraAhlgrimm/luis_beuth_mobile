@@ -27,10 +27,7 @@ namespace luis_beuth_mobile
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
-            if (studentID.Length == 0 && examID.Length == 0)
-            {
-                checkQRCode();
-            }
+            checkQRCode();
 
             overlay = new ZXingDefaultOverlay
             {
@@ -48,7 +45,7 @@ namespace luis_beuth_mobile
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
 
-            scanLabel = new Label { Text = "QR-Code einer Klausur oder eines Studenten einscannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
+            scanLabel = new Label { Text = "QR-Code einer Klausur oder eines Studenten einscannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Start, TextColor = Color.White };
             grid.Children.Add(scanLabel, 0, 0);
 
             Content = grid;
@@ -60,65 +57,58 @@ namespace luis_beuth_mobile
             {
                 // Stop analysis until we navigate away so we don't keep reading barcodes
                 zxing.IsAnalyzing = false;
-                if (studentID.Length == 0 && examID.Length == 0)
-                {
-                    var res = result.Text.Replace(System.Environment.NewLine, "");
 
-                    if (res.Length == 7 && isDigitsOnly(res))
+                // removing invalid signs from result
+                var res = result.Text.Replace(System.Environment.NewLine, "");
+
+                // check if QR Code is Valid
+                if ((res.Length == 7 && isDigitsOnly(res)) || (res.Length > 7 && isExamQR(res)))
+                {
+                    Debug.WriteLine("TEST: RIGHT QR");
+
+                    // Process StudentID
+                    if (studentID.Length == 0 && examID.Length == 0 && isDigitsOnly(res) )
                     {
                         studentID = res;
-                        scanExamQR();
+                        scanLabel.Text = "Zum Klausuren ausleihen Klausur-QR-Code einscannen!";
                     }
-                    else
+
+                    // Return Exam
+                    if (studentID.Length == 0 && examID.Length == 0 && isExamQR(res))
                     {
-                        if (isExamQR(res))
-                        {
-                            examID = res;
-                            sendReturnData();
-                        }
-                        else
-                        {
-                            DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code einscannen!", "OK");
-                        }
+                        examID = res;
+                        sendReturnData();
                     }
-                }
-            });   
-        }
 
-        private void scanExamQR()
-        {
-            scanLabel.Text = "QR-Code einer Klausur einscannen";
-            zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
-            {
-                // Stop analysis until we navigate away so we don't keep reading barcodes
-                zxing.IsAnalyzing = false;
-
-                if (studentID.Length != 0 && examID.Length == 0)
-                {
-                    var res = result.Text.Replace(System.Environment.NewLine, "");
-
-                    if (res.Length > 7 && !isDigitsOnly(res))
+                    // Rent Exam
+                    if (studentID.Length == 7 && examID.Length == 0 && isExamQR(res))
                     {
                         examID = res;
                         sendRentData();
                     }
-                    else
-                    {
-                        DisplayAlert("Barcode Scanner", "Bitte einen Validen QR-Code für die Klausur einscannen!", "OK");
-                    }
+                    
+                  
+                } else
+                {
+                    DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code einscannen!", "OK");
                 }
-            });
+
+            });   
         }
+        
 
         private async Task sendRentData()
         {
+            scanLabel.TextColor = Color.Green;
             scanLabel.Text = "Klausur ausgeliehen!";
+            await rewriteLabel();
             var rentClient = new RESTRents();
             await rentClient.rentExam(Int32.Parse(studentID), parseExamId(examID));
         }
 
         private async Task sendReturnData()
         {
+            scanLabel.TextColor = Color.Green;
             scanLabel.Text = "Klausur zurückgegeben!";
             await rewriteLabel();
             var rentClient = new RESTRents();
@@ -132,10 +122,11 @@ namespace luis_beuth_mobile
 
         private async Task rewriteLabel()
         {
-            Debug.WriteLine("REWRITE LABEL");
 
-            await Task.Delay(2000);
-            scanLabel.Text = "Weitere Klausur eintragen";
+            await Task.Delay(1000);
+            examID = "";
+            scanLabel.TextColor = Color.White;
+            scanLabel.Text = "Weiteren QR-Code scannen";
 
         }
 

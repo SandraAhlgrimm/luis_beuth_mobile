@@ -23,13 +23,13 @@ namespace luis_beuth_mobile
             data.student.matriculationNumber = studentId;
             data.examId = examId;
             
-            var studentJSON = JsonConvert.SerializeObject(data);
+            var rentJSON = JsonConvert.SerializeObject(data);
             string url = "http://luis-beuth.azurewebsites.net/api/rent/";
 
-            var content = new StringContent(studentJSON.ToString(), Encoding.UTF8, "application/json");
+            var content = new StringContent(rentJSON.ToString(), Encoding.UTF8, "application/json");
             
             var result = httpClient.PostAsync(url, content).Result;
-            Debug.WriteLine("RESTRent_rentExam()_content: " + content.ToString());
+            Debug.WriteLine("RESTRent_rentExam()_content: " + rentJSON.ToString());
             Debug.WriteLine("RESTRent_rentExam()_result: " + result);
         }
 
@@ -38,16 +38,15 @@ namespace luis_beuth_mobile
             var httpClient = new HttpClient();
 
             dynamic data = new ExpandoObject();
-            data.rent = new ExpandoObject() as dynamic;
-            data.rent.id = 1;
+            data.examId = 1;
 
-            var studentJSON = JsonConvert.SerializeObject(data);
-            string url = "http://luis-beuth.azurewebsites.net/api/rent/1";
+            var rentJson = JsonConvert.SerializeObject(data);
+            string url = "http://luis-beuth.azurewebsites.net/api/rent/";
 
-            var content = new StringContent(studentJSON.ToString(), Encoding.UTF8, "application/json");
-            var result = httpClient.PutAsync(url, content).Result;
+            var content = new StringContent(rentJson.ToString(), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(url, content).Result;
             
-            Debug.WriteLine("RESTRent_returnExam()_content: " + content.ToString());
+            Debug.WriteLine("RESTRent_returnExam()_content: " + rentJson.ToString());
             Debug.WriteLine("RESTRent_returnExam()_result: " + result);
         }
     }
