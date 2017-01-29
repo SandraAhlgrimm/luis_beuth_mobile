@@ -15,7 +15,6 @@ namespace luis_beuth_mobile
     {
         public async Task rentExam(int studentId, int examId)
         {
-            
             var httpClient = new HttpClient();
 
             dynamic data = new ExpandoObject();

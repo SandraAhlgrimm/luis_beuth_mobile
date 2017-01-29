@@ -83,8 +83,6 @@ namespace luis_beuth_mobile.Views
                         _examId = res;
                         await SendRentData();
                     }
-
-
                 }
                 else
                 {
@@ -99,19 +97,21 @@ namespace luis_beuth_mobile.Views
         {
             _scanLabel.TextColor = Color.Green;
             _scanLabel.Text = "Klausur ausgeliehen!";
-            //await RewriteLabel();
+           
             var rentClient = new RESTRents();
             await rentClient.rentExam(int.Parse(_studentId), ParseExamId(_examId));
+            await RewriteLabel();
         }
 
         private async Task SendReturnData()
         {
             _scanLabel.TextColor = Color.Green;
             _scanLabel.Text = "Klausur zurückgegeben!";
-            //await RewriteLabel();
-            var rentClient = new RESTRents();
-            await rentClient.returnExam(ParseExamId(_examId));
             
+            var rentClient = new RESTRents();
+            
+            await rentClient.returnExam(ParseExamId(_examId));
+            await RewriteLabel();
         }
 
         private static int ParseExamId(string exam)
@@ -121,12 +121,10 @@ namespace luis_beuth_mobile.Views
 
         private async Task RewriteLabel()
         {
-
             await Task.Delay(1000);
             _examId = "";
             _scanLabel.TextColor = Color.White;
             _scanLabel.Text = "Weiteren QR-Code scannen";
-
         }
 
         bool IsExamQr(string str)
@@ -152,16 +150,7 @@ namespace luis_beuth_mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             await CheckForCameraPermissions();
-            /*try
-			{
-				//zxing.IsScanning = true;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine("Error: " + ex.Message);
-			}*/
         }
 
         protected override void OnDisappearing()
