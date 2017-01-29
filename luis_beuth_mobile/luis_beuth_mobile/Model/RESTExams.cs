@@ -27,6 +27,22 @@ namespace luis_beuth_mobile.Model
 
         }
 
+
+        public async Task<List<Exam>> GetAllRentedExams(int studentId)
+        {
+            var httpClient = new HttpClient();
+            string url = "http://luis-beuth.azurewebsites.net/api/rent/8237120";// + studentId;
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var exams = stringToExam(content);
+                return exams;
+            }
+            else { return null; }
+        }
+
         public Task<Exam> GetById(int id)
         {
             return null;

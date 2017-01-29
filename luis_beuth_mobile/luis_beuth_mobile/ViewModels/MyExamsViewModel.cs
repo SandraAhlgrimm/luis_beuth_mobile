@@ -1,6 +1,7 @@
 ﻿using luis_beuth_mobile.Model;
 using luis_beuth_mobile.Models.Data;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 
 namespace luis_beuth_mobile.ViewModels
@@ -15,13 +16,15 @@ namespace luis_beuth_mobile.ViewModels
         {
             AllExams = new List<Exam>();
             RESTExams restApi = new RESTExams();
-            var exams = restApi.Get();
+            var studentId = Application.Current.Properties["studentId"] as string;
+            var exams = restApi.GetAllRentedExams(int.Parse(studentId));
         }
 
         public async void GetExams()
         {
             RESTExams restApi = new RESTExams();
-            var exams = await restApi.Get();
+            var studentId = Application.Current.Properties["studentId"] as string;
+            var exams = await restApi.GetAllRentedExams(int.Parse(studentId));
             AllExams = exams;
         }
 
