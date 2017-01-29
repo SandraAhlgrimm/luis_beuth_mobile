@@ -1,168 +1,133 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
-using System.Threading.Tasks;
-using Android.Media;
 
-namespace luis_beuth_mobile
+namespace luis_beuth_mobile.Views
 {
     public class BarcodeScanner : ContentPage
     {
-        ZXingScannerView zxing;
-        ZXingDefaultOverlay overlay;
+        private readonly ZXingScannerView _zxing;
 
-        String studentID = "";
-        String examID = "";
+        private string _studentId = "";
+        private string _examId = "";
 
-        Label scanLabel;
+        private readonly Label _scanLabel;
 
         public BarcodeScanner()
         {
-            zxing = new ZXingScannerView
+            _zxing = new ZXingScannerView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
-            if (studentID.Length == 0 && examID.Length == 0)
-            {
-                checkQRCode();
-            }
+            CheckQrCode();
 
-            overlay = new ZXingDefaultOverlay
+            var overlay = new ZXingDefaultOverlay
             {
-                ShowFlashButton = zxing.HasTorch,
+                ShowFlashButton = _zxing.HasTorch,
             };
             overlay.FlashButtonClicked += (sender, e) =>
             {
-                zxing.IsTorchOn = !zxing.IsTorchOn;
+                _zxing.IsTorchOn = !_zxing.IsTorchOn;
             };
             var grid = new Grid
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            grid.Children.Add(zxing);
+            grid.Children.Add(_zxing);
             grid.Children.Add(overlay);
 
-            scanLabel = new Label { Text = "QR-Code einer Klausur oder eines Studenten einscannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
-            grid.Children.Add(scanLabel, 0, 0);
+            _scanLabel = new Label { Text = "QR-Code einer Klausur oder eines Studenten einscannen", VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = Color.White };
+            grid.Children.Add(_scanLabel, 0, 0);
 
             Content = grid;
         }
 
-        private void checkQRCode()
+        private void CheckQrCode()
         {
-            zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
+            _zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(async () =>
             {
                 // Stop analysis until we navigate away so we don't keep reading barcodes
-                zxing.IsAnalyzing = false;
-                if (studentID.Length == 0 && examID.Length == 0)
-                {
-                    var res = result.Text.Replace(System.Environment.NewLine, "");
+                _zxing.IsAnalyzing = false;
 
-                    if (res.Length == 7 && isDigitsOnly(res))
+                // removing invalid signs from result
+                var res = result.Text.Replace(Environment.NewLine, "");
+
+                // check if QR Code is Valid
+                if ((res.Length == 7 && IsDigitsOnly(res)) || (res.Length > 7 && IsExamQr(res)))
+                {
+                    // Process StudentID
+                    if (_studentId.Length == 0 && _examId.Length == 0 && IsDigitsOnly(res))
                     {
-                        studentID = res;
-                        scanExamQR();
+                        _studentId = res;
+                        _scanLabel.Text = "Zum Klausuren ausleihen Klausur-QR-Code einscannen!";
                     }
-                    else
+
+                    // Return Exam
+                    if (_studentId.Length == 0 && _examId.Length == 0 && IsExamQr(res))
                     {
-                        if (isExamQR(res))
-                        {
-                            examID = res;
-                            sendReturnData();
-                        }
-                        else
-                        {
-                            DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code einscannen!", "OK");
-                        }
+                        _examId = res;
+                        await SendReturnData();
+                    }
+
+                    // Rent Exam
+                    if (_studentId.Length == 7 && _examId.Length == 0 && IsExamQr(res))
+                    {
+                        _examId = res;
+                        await SendRentData();
                     }
                 }
+                else
+                {
+                   await DisplayAlert("Barcode Scanner", "Bitte einen validen QR-Code einscannen!", "OK");
+                }
+
             });   
         }
+        
 
-        private void scanExamQR()
+        private async Task SendRentData()
         {
-            playSound();
-            scanLabel.Text = "QR-Code einer Klausur einscannen";
-            zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(() =>
-            {
-                // Stop analysis until we navigate away so we don't keep reading barcodes
-                zxing.IsAnalyzing = false;
-
-                if (studentID.Length != 0 && examID.Length == 0)
-                {
-                    var res = result.Text.Replace(System.Environment.NewLine, "");
-
-                    if (res.Length > 7 && !isDigitsOnly(res))
-                    {
-                        examID = res;
-                        sendRentData();
-                    }
-                    else
-                    {
-                        DisplayAlert("Barcode Scanner", "Bitte einen Validen QR-Code für die Klausur einscannen!", "OK");
-                    }
-                }
-            });
-        }
-
-        private async Task sendRentData()
-        {
-            playSound();
-            scanLabel.Text = "Klausur ausgeliehen!";
-            Debug.WriteLine("DEBUG_RENT");
-            Debug.WriteLine("DEBUG_DATA_StudentID: " + studentID);
-            Debug.WriteLine("DEBUG_DATA_Exam: " + parseExamId(examID));
-
+            _scanLabel.TextColor = Color.Green;
+            _scanLabel.Text = "Klausur ausgeliehen!";
+           
             var rentClient = new RESTRents();
-            await rentClient.rentExam(Int32.Parse(studentID), parseExamId(examID));
+            await rentClient.rentExam(int.Parse(_studentId), ParseExamId(_examId));
+            await RewriteLabel();
         }
 
-        private async Task sendReturnData()
+        private async Task SendReturnData()
         {
-            playSound();
-            scanLabel.Text = "Klausur zurückgegeben!";
-            Debug.WriteLine("DEBUG_RETURN");
-            Debug.WriteLine("DEBUG_DATA_ExamID: " + parseExamId(examID));
-
-            await rewriteLabel();
-            var rentClient = new RESTRents();
-            //await rentClient.returnExam(parseExamId(examID));
-        }
-
-        private int parseExamId(String exam)
-        {
-            return Int32.Parse(exam.Split('_')[0].Split(':')[1]);
-        }
-
-        private async Task rewriteLabel()
-        {
+            _scanLabel.TextColor = Color.Green;
+            _scanLabel.Text = "Klausur zurückgegeben!";
             
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            var running = true;
-
-            while (running)
-            {
-                Debug.WriteLine("DEBUG_SW: " + sw.ElapsedMilliseconds);
-                if (sw.ElapsedMilliseconds > 2500)
-                {
-                    scanLabel.Text = "Weiteren QR Code einscannen!";
-                    running = false;
-                    sw.Reset();
-                } else
-                {
-                    scanLabel.Text = "Klausur zurückgegeben!";
-                }
-            }
+            var rentClient = new RESTRents();
+            
+            await rentClient.returnExam(ParseExamId(_examId));
+            await RewriteLabel();
         }
 
-        bool isExamQR(string str)
+        private static int ParseExamId(string exam)
+        {
+            return int.Parse(exam.Split('_')[0].Split(':')[1]);
+        }
+
+        private async Task RewriteLabel()
+        {
+            await Task.Delay(1000);
+            _examId = "";
+            _scanLabel.TextColor = Color.White;
+            _scanLabel.Text = "Weiteren QR-Code scannen";
+        }
+
+        bool IsExamQr(string str)
         {
             var strings = str.Split('_');
 
@@ -177,34 +142,20 @@ namespace luis_beuth_mobile
             return true;
         }
 
-        bool isDigitsOnly(string str)
+        private static bool IsDigitsOnly(string str)
         {
-            foreach (char c in str)
-            {
-                if (c < '0' || c > '9')
-                    return false;
-            }
-            return true;
+            return str.Cast<char>().All(c => c >= '0' && c <= '9');
         }
 
-        protected async override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             await CheckForCameraPermissions();
-            /*try
-			{
-				//zxing.IsScanning = true;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine("Error: " + ex.Message);
-			}*/
         }
 
         protected override void OnDisappearing()
         {
-            zxing.IsScanning = false;
+            _zxing.IsScanning = false;
             base.OnDisappearing();
         }
 
@@ -220,13 +171,13 @@ namespace luis_beuth_mobile
                         await DisplayAlert("Kamera Zugriff", "Zum Scannen von Barcodes wird Zugriff auf die Kamera benötigt.", "OK");
                     }
 
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera });
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera);
                     status = results[Permission.Camera];
                 }
 
                 if (status == PermissionStatus.Granted)
                 {
-                    zxing.IsScanning = true;
+                    _zxing.IsScanning = true;
                 }
                 else if (status != PermissionStatus.Unknown)
                 {
@@ -240,7 +191,7 @@ namespace luis_beuth_mobile
             }
         }
 
-        public void playSound()
+        /*public void playSound()
         {
             var duration = 1000;
             var sampleRate = 8000;
@@ -267,7 +218,7 @@ namespace luis_beuth_mobile
             Debug.WriteLine("BEEEEEP");
 
             track.Play();
-        }
+        }*/
     }
 }
 

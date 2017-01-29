@@ -82,7 +82,7 @@ namespace luis_beuth_mobile
 			Content = grid;
 		}
 
-		protected async override void OnAppearing()
+		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
             await CheckForCameraPermissions();
