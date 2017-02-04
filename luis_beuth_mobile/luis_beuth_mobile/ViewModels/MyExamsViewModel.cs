@@ -1,6 +1,8 @@
 ﻿using luis_beuth_mobile.Model;
 using luis_beuth_mobile.Models.Data;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
 
 
@@ -21,8 +23,19 @@ namespace luis_beuth_mobile.ViewModels
         {
             RESTExams restApi = new RESTExams();
             var studentId = Application.Current.Properties["studentId"] as string;
-            var exams = await restApi.GetAllRentedExams(int.Parse(studentId));
-            AllExams = exams;
+            var rents = await restApi.GetAllRentedExams(int.Parse(studentId));
+            var exams = await restApi.Get();
+
+            var result = new List<Exam>();
+
+            foreach (var t in rents)
+            {
+                Exam res = exams.Find(item => item.Id == t.ExamId);
+                result.Add(res);
+            }
+            
+
+            AllExams = result;
         }
 
 
