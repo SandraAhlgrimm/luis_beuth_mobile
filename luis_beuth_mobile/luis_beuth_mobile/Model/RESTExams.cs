@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace luis_beuth_mobile.Model
 {
-    class RESTExams : IREST<Exam>
+    class RestExams : IREST<Exam>
     {
         public async Task<List<Exam>> Get()
         {
@@ -32,7 +32,7 @@ namespace luis_beuth_mobile.Model
         {
             var httpClient = new HttpClient();
 
-            string urlRents = "http://luis-beuth.azurewebsites.net/api/rent/8237120";// + studentId;
+            string urlRents = "http://luis-beuth.azurewebsites.net/api/rent?studentId=" + studentId;
 
             var response = await httpClient.GetAsync(urlRents);
   

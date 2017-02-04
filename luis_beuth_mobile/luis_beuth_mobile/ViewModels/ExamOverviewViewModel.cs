@@ -14,13 +14,13 @@ namespace luis_beuth_mobile.ViewModels
 		public ExamOverviewViewModel()
 		{
 			AllExams = new List<Exam>();
-			RESTExams restApi = new RESTExams();
+			RestExams restApi = new RestExams();
 			var exams = restApi.Get();
 		}
 
 		public async void GetExams()
 		{
-			RESTExams restApi = new RESTExams();
+			RestExams restApi = new RestExams();
 			var exams = await restApi.Get();
 			AllExams = exams;
 		}

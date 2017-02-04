@@ -19,7 +19,7 @@ namespace luis_beuth_mobile.ViewModels
 
         public async void GetExams()
         {
-            RESTExams restApi = new RESTExams();
+            RestExams restApi = new RestExams();
             var studentId = Application.Current.Properties["studentId"] as string;
             var exams = await restApi.GetAllRentedExams(int.Parse(studentId));
             AllExams = exams;

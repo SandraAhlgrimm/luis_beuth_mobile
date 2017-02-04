@@ -98,8 +98,8 @@ namespace luis_beuth_mobile.Views
             _scanLabel.TextColor = Color.Green;
             _scanLabel.Text = "Klausur ausgeliehen!";
            
-            var rentClient = new RESTRents();
-            await rentClient.rentExam(int.Parse(_studentId), ParseExamId(_examId));
+            var rentClient = new RestRents();
+            await rentClient.RentExam(int.Parse(_studentId), ParseExamId(_examId));
             await RewriteLabel();
         }
 
@@ -108,9 +108,9 @@ namespace luis_beuth_mobile.Views
             _scanLabel.TextColor = Color.Green;
             _scanLabel.Text = "Klausur zurückgegeben!";
             
-            var rentClient = new RESTRents();
+            var rentClient = new RestRents();
             
-            await rentClient.returnExam(ParseExamId(_examId));
+            await rentClient.ReturnExam(ParseExamId(_examId));
             await RewriteLabel();
         }
 
