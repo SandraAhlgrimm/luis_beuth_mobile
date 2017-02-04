@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using luis_beuthluis_beuth_mobile.Models.Data;
 
 namespace luis_beuth_mobile.Model
 {
@@ -28,7 +29,7 @@ namespace luis_beuth_mobile.Model
         }
 
 
-        public async Task<List<Exam>> GetAllRentedExams(int studentId)
+        public async Task<List<Rent>> GetAllRentedExams(int studentId)
         {
             var httpClient = new HttpClient();
 
@@ -40,8 +41,8 @@ namespace luis_beuth_mobile.Model
             {
                 var content = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine("DEBUG_CONTENT: " + content);
-                var exams = stringToExam(content);
-                return exams;
+                var rents = stringToRent(content);
+                return rents;
             }
             else { return null; }
         }
@@ -54,6 +55,11 @@ namespace luis_beuth_mobile.Model
         private List<Exam> stringToExam(string json)
         {
             return JsonConvert.DeserializeObject<List<Exam>>(json);
+        }
+
+        private List<Rent> stringToRent(string json)
+        {
+            return JsonConvert.DeserializeObject<List<Rent>>(json);
         }
     }
 }

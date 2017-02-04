@@ -57,7 +57,7 @@
             <Label Grid.Column="2" Text="{Binding Semester}" />
             <Label Grid.Column="3" Text="{Binding Period}" />
             <Label Grid.Column="4" Text="{Binding Grade}" />
-            <Label Grid.Column="5" Font="Bold" BackgroundColor="Green" />
+            <Label Grid.Column="5" Text="{Binding}" BackgroundColor="Green" />
 
           </Grid>
         </ViewCell>
