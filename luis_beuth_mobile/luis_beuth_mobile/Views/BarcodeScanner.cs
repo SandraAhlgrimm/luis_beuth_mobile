@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using luis_beuthluis_beuth_mobile.Models.Data;
+using luis_beuth_mobile.Model;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
@@ -50,6 +53,22 @@ namespace luis_beuth_mobile.Views
             Content = grid;
         }
 
+        private async Task<Boolean> CheckExamAvailability(int examId)
+        {
+            var restRents = new RestRents();
+            List<Rent> allRents = await restRents.getAllRents();
+
+            foreach (var rent in allRents)
+            {
+                Debug.WriteLine(rent.ExamId);
+                if (rent.ExamId == examId)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void CheckQrCode()
         {
             _zxing.OnScanResult += (result) => Device.BeginInvokeOnMainThread(async () =>
@@ -81,7 +100,16 @@ namespace luis_beuth_mobile.Views
                     if (_studentId.Length == 7 && _examId.Length == 0 && IsExamQr(res))
                     {
                         _examId = res;
-                        await SendRentData();
+                        if (await CheckExamAvailability(ParseExamId(_examId)))
+                        {
+                            await SendRentData();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Klausur bereits ausgeliehen", "Scanne bitte eine andere Klausur ein", "OK");
+                            await RewriteLabel();
+                        }
+                        
                     }
                 }
                 else

@@ -8,12 +8,28 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using luis_beuthluis_beuth_mobile.Models.Data;
 
 namespace luis_beuth_mobile
 {
     class RestRents
     {
         private string url = "http://luis-beuth.azurewebsites.net/api/rent/";
+
+        public async Task<List<Rent>> getAllRents()
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine("DEBUG_CONTENT: " + content);
+                var rents = stringToRent(content);
+                return rents;
+            }
+            else { return null; }
+        }
 
         public async Task RentExam(int studentId, int examId)
         {
@@ -51,6 +67,11 @@ namespace luis_beuth_mobile
             Debug.WriteLine("RESTRent_returnExam()_content: " + bodyJson.ToString());
             Debug.WriteLine("RESTRent_returnExam()_result: " + result);
 
+        }
+
+        private List<Rent> stringToRent(string json)
+        {
+            return JsonConvert.DeserializeObject<List<Rent>>(json);
         }
     }
 }
