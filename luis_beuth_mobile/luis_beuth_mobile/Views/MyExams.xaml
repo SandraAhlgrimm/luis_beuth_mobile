@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <Label Text="Fach" Font="Bold" Grid.Column="0" Grid.Row="0" />
         <Label Text="Dozent" Font="Bold" Grid.Column="1" Grid.Row="0"/>
-        <Label Text="Semester" Font="Bold" Grid.Column="2" Grid.Row="0"/>
+        <Label Text="Sem" Font="Bold" Grid.Column="2" Grid.Row="0"/>
         <Label Text="1./2." Font="Bold" Grid.Column="3" Grid.Row="0"/>
         <Label Text="Note" Font="Bold" Grid.Column="4" Grid.Row="0"/>
         <Label Text="Rückgabe" Font="Bold" Grid.Column="5" Grid.Row="0"/>
@@ -52,12 +52,12 @@
             </Grid.ColumnDefinitions>
             <!--<Label Text="{Binding Id}"/>-->
             <!--header über view cell-->
-            <Label Grid.Column="0" Text="{Binding Course.Name}" Font="Bold" />
-            <Label Grid.Column="1" Text="{Binding Teacher.Name}" />
-            <Label Grid.Column="2" Text="{Binding Semester}" />
-            <Label Grid.Column="3" Text="{Binding Period}" />
-            <Label Grid.Column="4" Text="{Binding Grade}" />
-            <Label Grid.Column="5" Text="01.03.2017" Font="Bold" />
+            <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Course.Name}" Font="Bold" />
+            <Label VerticalTextAlignment="Center" Grid.Column="1" Text="{Binding Teacher.Name}" />
+            <Label VerticalTextAlignment="Center" Grid.Column="2" Text="{Binding Semester}" />
+            <Label VerticalTextAlignment="Center" Grid.Column="3" Text="{Binding Period}" />
+            <Label VerticalTextAlignment="Center" Grid.Column="4" Text="{Binding Grade}" />
+            <Label VerticalTextAlignment="Center" Grid.Column="5" Text="{Binding ReturnDate}" Font="Bold" />
 
           </Grid>
         </ViewCell>

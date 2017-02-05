@@ -49,6 +49,21 @@ namespace luis_beuth_mobile.ViewModels
                     t.Rents = null;
                 }
             }
+
+		    foreach (var exam in exams)
+		    {
+		        if (exam.Rents == null)
+		        {
+		            exam.IsAvailable = true;
+		        }
+		        else
+		        {
+		            exam.IsAvailable = false;
+		        }
+            
+                Debug.WriteLine("AVAIL: " + exam.IsAvailable);
+		    }
+
             AllExams = exams;
         }
 

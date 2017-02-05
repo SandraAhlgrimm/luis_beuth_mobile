@@ -31,9 +31,9 @@ namespace luis_beuth_mobile.ViewModels
             foreach (var t in rents)
             {
                 Exam res = exams.Find(item => item.Id == t.ExamId);
+                res.ReturnDate = t.EndDate.ToString("dd.MM.yy");
                 result.Add(res);
             }
-            
 
             AllExams = result;
         }
