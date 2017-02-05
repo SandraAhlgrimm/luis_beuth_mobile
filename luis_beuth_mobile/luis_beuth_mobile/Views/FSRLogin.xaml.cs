@@ -16,7 +16,7 @@ namespace luis_beuth_mobile.Views
 		{
 			if (String.IsNullOrEmpty(passwordEntry.Text))
 			{
-				DisplayAlert("Validation Error", "Username and Password are required", "Re-try");
+				DisplayAlert("Validation Error", "Password is required", "Re-try");
 			}
 			else {
 				SendToBe(passwordEntry.Text);
