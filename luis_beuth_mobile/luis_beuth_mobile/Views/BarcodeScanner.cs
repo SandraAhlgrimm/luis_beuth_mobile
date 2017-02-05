@@ -53,6 +53,13 @@ namespace luis_beuth_mobile.Views
             Content = grid;
         }
 
+        private async Task<int> GetRentId(int examId)
+        {
+            var restRents = new RestRents();
+            var rentId = await restRents.getRentId(examId);
+            return rentId;
+        }
+
         private async Task<Boolean> CheckExamAvailability(int examId)
         {
             var restRents = new RestRents();
@@ -93,7 +100,18 @@ namespace luis_beuth_mobile.Views
                     if (_studentId.Length == 0 && _examId.Length == 0 && IsExamQr(res))
                     {
                         _examId = res;
-                        await SendReturnData();
+
+                        var rentId = await GetRentId(ParseExamId(_examId));
+
+                        if (rentId >= 1)
+                        {
+                            await SendReturnData(rentId);
+                        }
+                        else
+                        {
+                            await DisplayAlert("Eingescannte Klausur bereits zurückgegeben!", "Scanne bitte eine andere Klausur ein", "OK");
+                            await RewriteLabel();
+                        }   
                     }
 
                     // Rent Exam
@@ -131,14 +149,14 @@ namespace luis_beuth_mobile.Views
             await RewriteLabel();
         }
 
-        private async Task SendReturnData()
+        private async Task SendReturnData(int rentId)
         {
             _scanLabel.TextColor = Color.Green;
             _scanLabel.Text = "Klausur zurückgegeben!";
             
             var rentClient = new RestRents();
             
-            await rentClient.ReturnExam(ParseExamId(_examId));
+            await rentClient.ReturnExam(ParseExamId(_examId), rentId);
             await RewriteLabel();
         }
 

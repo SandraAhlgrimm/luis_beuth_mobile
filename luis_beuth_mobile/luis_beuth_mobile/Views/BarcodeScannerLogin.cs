@@ -11,6 +11,7 @@ namespace luis_beuth_mobile
 	public class BarcodeScannerLogin : ContentPage
 	{
 		ZXingScannerView zxing;
+
 		ZXingDefaultOverlay overlay;
 
         Boolean called = false;
