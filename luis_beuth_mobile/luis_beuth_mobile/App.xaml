@@ -7,7 +7,9 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
   <Application.Resources>
     <ResourceDictionary>
+			<Style TargetType="NavigationPage">
+				<Setter Property="BarBackgroundColor" Value="#00a5a5"/>
+			</Style>
     </ResourceDictionary>
   </Application.Resources>
-  
 </Application>
