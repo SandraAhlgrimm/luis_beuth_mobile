@@ -169,6 +169,31 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_circle_black_18dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_supervisor_account_black_18dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_supervisor_account_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_exit_to_app_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_exit_to_app_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_exit_to_app_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_exit_to_app_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_help_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_help_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_help_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_help_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_info_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_info_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_info_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_info_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_playlist_add_check_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_playlist_add_check_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_playlist_add_check_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_playlist_add_check_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_subject_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_subject_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_subject_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_subject_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_supervisor_account_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_vpn_key_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vpn_key_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vpn_key_black_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vpn_key_black_18dp.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
