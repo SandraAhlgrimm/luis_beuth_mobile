@@ -39,15 +39,18 @@ namespace luis_beuth_mobile
             var httpClient = new HttpClient();
 
             dynamic data = new ExpandoObject();
+
             data.examId = examId;
 
-            var rentJson = JsonConvert.SerializeObject(data);
+            var bodyJson = JsonConvert.SerializeObject(data);
+            url = "http://luis-beuth.azurewebsites.net/api/rent/";
 
-            var content = new StringContent(rentJson.ToString(), Encoding.UTF8, "application/json");
+            var content = new StringContent(bodyJson.ToString(), Encoding.UTF8, "application/json");
             var result = httpClient.PutAsync(url, content).Result;
             
-            Debug.WriteLine("RESTRent_returnExam()_content: " + rentJson.ToString());
+            Debug.WriteLine("RESTRent_returnExam()_content: " + bodyJson.ToString());
             Debug.WriteLine("RESTRent_returnExam()_result: " + result);
+
         }
     }
 }
