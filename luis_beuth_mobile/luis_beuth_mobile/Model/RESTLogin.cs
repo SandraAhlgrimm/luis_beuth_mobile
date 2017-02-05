@@ -10,7 +10,7 @@ namespace luis_beuth_mobile
 		public async Task<Boolean> Validate( int matriculationNumber, string pwHash )
 		{
 			var http = new HttpClient();
-			string url = "http://luis-beuth.azurewebsites.net/api/login?{matriculationNumber}/{pwHash}";
+			string url = "http://luis-beuth.azurewebsites.net/api/login/" + pwHash;
 			var response = await http.GetAsync(url);
 			return response.IsSuccessStatusCode;
 		}

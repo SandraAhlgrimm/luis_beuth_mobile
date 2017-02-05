@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using Java.Net;
 using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views
@@ -8,9 +10,6 @@ namespace luis_beuth_mobile.Views
 		public FSRLogin()
 		{
 			InitializeComponent();
-
-			passwordEntry = new Entry { Text = "" };
-
 		}
 		public void Login( object sender, EventArgs e)
 		{
@@ -20,15 +19,27 @@ namespace luis_beuth_mobile.Views
 			}
 			else {
 				SendToBe(passwordEntry.Text);
-			    Navigation.PushAsync(new ScanView());
+			   
 			}
 		}
 
 
 	    private async void SendToBe(string text)
 		{
-		    var restLogin = new RESTLogin();
-		    await restLogin.Validate(12345, text); //TODO: send StudentID
+            var studentId = Application.Current.Properties["studentId"] as string;
+		    var matriculationNr = Int32.Parse(studentId);
+
+            var restLogin = new RESTLogin();
+		    var response = await restLogin.Validate(matriculationNr, text);
+
+		    if (response)
+		    {
+		        Navigation.PushAsync(new BarcodeScanner());
+		    }
+		    else
+		    {
+                DisplayAlert("Server Error", "Wrong Password", "Re-try");
+            }
 		}
     }
 }
