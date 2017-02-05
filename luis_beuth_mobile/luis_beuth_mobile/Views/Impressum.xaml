@@ -12,7 +12,7 @@
   <ContentPage.Content>
     <StackLayout VerticalOptions="StartAndExpand" Padding="30">
 
-      <Label Text="Diese App ist im Rahmen des Masterkurses 'Entwicklung mobiler Applikationen' in Kooperation mit dem Fachbereich 3 im Wintersemester 2016/17 entstanden. Alle Rechte liegen bei Sandra Kriemann, Raul Vinh Qua Ngyuen und Friederike Fröbel." />
+      <Label Text="Diese App ist im Rahmen des Masterkurses 'Entwicklung mobiler Applikationen' in Kooperation mit dem Fachbereich 3 im Wintersemester 2016/17 entstanden. Alle Rechte liegen bei Sandra Kriemann, Raul Vinh Khoa Nguyen und Friederike Fröbel." />
 
 
     </StackLayout>

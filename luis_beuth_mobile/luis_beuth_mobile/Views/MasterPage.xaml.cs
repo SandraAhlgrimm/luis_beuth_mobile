@@ -1,6 +1,6 @@
 ﻿using luis_beuth_mobile.Model;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace luis_beuth_mobile.Views

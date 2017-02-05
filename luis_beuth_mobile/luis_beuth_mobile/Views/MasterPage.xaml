@@ -28,11 +28,19 @@
       <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="Logo3.png"/>
       <Label Text ="LUIS" Grid.Column="1" Grid.Row="1" Font="Bold" />
 		<Label Text ="Altklausuren Inventarsystem" Grid.Column="1" Grid.Row="2"  />
-      </Grid>
+      </Grid >
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>
-            <ImageCell Text="{Binding Title}" TextColor="#00a5a5" ImageSource="{Binding IconSource}" />
+            <!--<ImageCell Text="{Binding Title}" TextColor="#00a5a5" ImageSource="{Binding IconSource}" />
+            -->
+            <ViewCell>
+              <StackLayout Padding="0, 5, 15, 5" Orientation="Horizontal">
+                <Image Source="{Binding IconSource}" WidthRequest="60" HeightRequest="60"/>
+                <Label Text="{Binding Title}" VerticalOptions="Center" TextColor="#00a5a5"/>
+              </StackLayout>
+            </ViewCell>
+
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
