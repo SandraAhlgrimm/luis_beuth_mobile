@@ -8,7 +8,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <Color x:Key="BarBackgroundColor">#00a5a5</Color>
-      <Color x:Key="ToolBarBackgroundColor">#00a5a5</Color>
+      <!--Color x:Key="ToolBarBackgroundColor">#00a5a5</Color-->
 
     </ResourceDictionary>
   </Application.Resources>

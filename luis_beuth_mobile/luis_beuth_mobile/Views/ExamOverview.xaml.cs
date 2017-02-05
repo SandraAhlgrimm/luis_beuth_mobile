@@ -23,6 +23,9 @@ namespace luis_beuth_mobile.Views
         protected override void OnAppearing()
         {
             vm.GetExams();
+
+            
+
             base.OnAppearing();
             
         }

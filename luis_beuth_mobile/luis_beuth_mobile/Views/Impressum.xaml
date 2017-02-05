@@ -12,7 +12,7 @@
   <ContentPage.Content>
     <StackLayout VerticalOptions="StartAndExpand" Padding="30">
 
-      <Image Source="Beuth-Logo_horizontal.png" />
+      <Image Source="BeuthLogoHorizontal.png" />
       <Label Text="Diese Applikation ist im Rahmen des Masterkurses 'Entwicklung mobiler Applikationen' in Kooperation mit dem Fachbereich 3 im Wintersemester 2016/17 entstanden. Alle Rechte liegen bei Sandra Kriemann, Raul Vinh Qua Ngyuen und Friederike Fröbel." />
 
 

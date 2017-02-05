@@ -15,10 +15,4 @@
   <MasterDetailPage.Master>
     <local:MasterPage x:Name="masterPage"></local:MasterPage>
   </MasterDetailPage.Master>
-  <MasterDetailPage.Detail>
-    <NavigationPage>
-      <Image Source="Logo3.png"/>
-      <Label Text ="Willkommen bei LUIS, dem Altklausuren Inventarsystem des Fachbereich 3 der Beuth Hochschule!" Font="Bold" />
-    </NavigationPage>
-  </MasterDetailPage.Detail>
 </MasterDetailPage>

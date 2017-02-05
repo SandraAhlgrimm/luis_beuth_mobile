@@ -7,10 +7,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using luis_beuthluis_beuth_mobile.Models.Data;
 
 namespace luis_beuth_mobile.Model
 {
-    class RESTExams : IREST<Exam>
+    class RestExams : IREST<Exam>
     {
         public async Task<List<Exam>> Get()
         {
@@ -27,6 +28,25 @@ namespace luis_beuth_mobile.Model
 
         }
 
+
+        public async Task<List<Rent>> GetAllRentedExams(int studentId)
+        {
+            var httpClient = new HttpClient();
+
+            string urlRents = "http://luis-beuth.azurewebsites.net/api/rent?studentId=" + studentId;
+
+            var response = await httpClient.GetAsync(urlRents);
+  
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine("DEBUG_CONTENT: " + content);
+                var rents = stringToRent(content);
+                return rents;
+            }
+            else { return null; }
+        }
+
         public Task<Exam> GetById(int id)
         {
             return null;
@@ -35,6 +55,11 @@ namespace luis_beuth_mobile.Model
         private List<Exam> stringToExam(string json)
         {
             return JsonConvert.DeserializeObject<List<Exam>>(json);
+        }
+
+        private List<Rent> stringToRent(string json)
+        {
+            return JsonConvert.DeserializeObject<List<Rent>>(json);
         }
     }
 }

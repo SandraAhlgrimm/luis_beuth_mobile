@@ -18,8 +18,6 @@ namespace luis_beuth_mobile
 		public BarcodeScannerLogin()
 		{
 
-            Debug.WriteLine("LOG: BARCODESCANNERLOGIN");
-
             zxing = new ZXingScannerView
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -28,7 +26,6 @@ namespace luis_beuth_mobile
 			zxing.OnScanResult += (result) =>
 				Device.BeginInvokeOnMainThread(async () =>
 				{
-                    Debug.WriteLine("LOG: CALL");
 					// Stop analysis until we navigate away so we don't keep reading barcodes
 					zxing.IsAnalyzing = false;
 
@@ -85,7 +82,7 @@ namespace luis_beuth_mobile
 			Content = grid;
 		}
 
-		protected async override void OnAppearing()
+		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
             await CheckForCameraPermissions();

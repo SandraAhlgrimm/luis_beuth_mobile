@@ -20,6 +20,6 @@ namespace luis_beuth_mobile.Models.Data
         public Course Course { get; set; }
         public Period Period { get; set; }
         public double Grade { get; set; }
-        public List<Rent> Rents { get; }
+        public List<Rent> Rents { get; set; }
     }
 }
