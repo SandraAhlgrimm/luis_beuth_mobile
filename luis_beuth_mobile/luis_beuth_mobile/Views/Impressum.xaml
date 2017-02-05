@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="luis_beuth_mobile.Views.Impressum"
              Title="Impressum">
-  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
-  <ContentPage.Padding>
+ <ContentPage.Padding>
     <!--<DAmit Text in Ios nicht in BAtterieleiste steht>-->
     <OnPlatform x:TypeArguments="Thickness"
     iOS = "20,40,20,20"

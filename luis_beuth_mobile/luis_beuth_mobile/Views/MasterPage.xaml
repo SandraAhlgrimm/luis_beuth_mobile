@@ -16,20 +16,23 @@
     <StackLayout VerticalOptions="FillAndExpand">
       <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="4*" />
           <RowDefinition Height="1*" />
+          <RowDefinition Height="0.5*" />
+			<RowDefinition Height="1*" />
+			<RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="2*" />
           <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-      <Image Grid.Column="0" Grid.Row="0" Source="Logo3.png"/>
-      <Label Text ="LUIS Klausuren" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Font="Bold" />
+      <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="Logo3.png"/>
+      <Label Text ="LUIS" Grid.Column="1" Grid.Row="1" Font="Bold" />
+		<Label Text ="Altklausuren Inventarsystem" Grid.Column="1" Grid.Row="2"  />
       </Grid>
       <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>
-            <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />
+            <ImageCell Text="{Binding Title}" TextColor="#00a5a5" ImageSource="{Binding IconSource}" />
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
